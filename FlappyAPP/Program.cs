@@ -86,7 +86,6 @@ class Program
             BlockEndColumns(CylinderColumn, Obstacle);
             Console.Write("\n");
         }
-
     }
 
     static void BlockStartCylinderPipe(int row, int column, string Obstacle)
@@ -100,7 +99,6 @@ class Program
         //  Rows
         for (int i = 0; i < row; i++)
         {
-
             // For every 25th column, draw a pipe
             BlockEndColumns(space, " ");
             BlockEndColumns(CylinderColumn, Obstacle);
