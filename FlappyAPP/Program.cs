@@ -30,6 +30,7 @@ class Program
         Console.WriteLine("Welcome to FlappyAPP!");
         Console.WriteLine("This is a simple console application that simulates a flappy bird game.");
         Console.WriteLine("This application has the obstacle generation feature enabled.");
+        Console.ReadKey();
        var program = new Program();
         program.Game();
 
@@ -67,6 +68,7 @@ class Program
         {
             var key = Console.ReadKey(true).Key;
             if (key == ConsoleKey.Spacebar) { Height--; }
+            while (Console.KeyAvailable) Console.ReadKey(true);
         }
         else
         {
@@ -78,7 +80,7 @@ class Program
     void DrawFlight()
     {
         int newFlightHight = SetFlightHight();
-        if (newFlightHight < 1) Height = 1;
+        if (newFlightHight < 2) Height = 2;
         if (newFlightHight > 18) Height = 18;
         newHeight = newFlightHight;
     }
@@ -86,14 +88,10 @@ class Program
 
     void DrawGameArea()
     {
-
-
-        //  Row
         for (int i = 0; i < blockSize; i++)
         {
             if (i == 0 || i == blockSize - 1)
             {
-                //  Column
                 Columns(inlineSize);
             }
             else if (newHeight == i)
@@ -113,17 +111,3 @@ class Program
         }
     }
 }
-
-
-
-
-/*void CheckSpaceBarAction() //under sjekk og testing for å cleare spacebar hold problemet
-{
-    if (Console.KeyAvailable)
-    {
-        var key = Console.ReadKey(true).Key;
-        if (key == ConsoleKey.Spacebar && !isSpcebarPressed) { isSpcebarPressed = true; }
-        while (Console.KeyAvailable) Console.ReadKey(true);
-    }
-    DrawFlight();
-}*/
