@@ -22,7 +22,6 @@ class Program
     {
 
         int CylinderRow = 6;
-        int CylinderColumn = 5;
         string newlineCharacter = "(space)";
 
         //  Row
@@ -32,19 +31,24 @@ class Program
             {
                 //  Column
                 BlockStartColumns(column, Obstacle);
+                Console.Write("\n");
             }
 
             else if (i == 1)
             {
-                BlockEndCylinderPipe(CylinderRow, CylinderColumn, Obstacle);
+                BlockEndCylinderPipe(CylinderRow, column, Obstacle);
+                Console.Write("\n");
             }
             else if (i == row - 2)
             {
-                BlockStartCylinderPipe(CylinderRow, CylinderColumn, Obstacle);
+                BlockStartCylinderPipe(CylinderRow, column, Obstacle);
+                Console.Write("\n");
             }
             else
             {
+                //  TODO: Add a Figure to the game area
                 BlockStartColumns(1, newlineCharacter);
+                Console.Write("\n");
             }
         }
     }
@@ -55,7 +59,7 @@ class Program
         {
             Console.Write(Obstacle);
         }
-        Console.Write("\n");
+        
     }
 
     static void BlockEndColumns(int column, string Obstacle)
@@ -64,27 +68,37 @@ class Program
         {
             Console.Write(Obstacle);
         }
-        Console.Write("\n");
     }
 
     static void BlockEndCylinderPipe(int row, int column, string Obstacle)
     {
+        column /= 2;
+        int CylinderColumn = 5;
+
         //  Rows
         for (int i = 0; i < row; i++)
         {
-            
-            
             // For every 25th column, draw a pipe
-            BlockEndColumns(column, Obstacle);
+            BlockEndColumns(column, " ");
+            BlockEndColumns(CylinderColumn, Obstacle);
+            Console.Write("\n");
         }
+
     }
 
     static void BlockStartCylinderPipe(int row, int column, string Obstacle)
     {
+        column /= 2;
+        int CylinderColumn = 5;
+
         //  Rows
         for (int i = 0; i < row; i++)
         {
-            BlockStartColumns(column, Obstacle);
+
+            // For every 25th column, draw a pipe
+            BlockEndColumns(column, " ");
+            BlockEndColumns(CylinderColumn, Obstacle);
+            Console.Write("\n");
         }
     }
 }
