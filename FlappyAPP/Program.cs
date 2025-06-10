@@ -6,25 +6,6 @@ using System.Xml;
 namespace FlappyAPP;
 class Program
 {
-
-    string[] wingUp = {
-    "  \\   /  ",
-    "   \\0/   ",
-    "          "
-};
-    string[] wingDown = {
-    "         ",
-    "   /0\\  ",
-    "  /   \\ "
-};
-
-    int oldHeight = 10;
-    int Height = 10;
-    int newHeight = 10;
-    bool isWingUp = true;
-    int blockSize = 21;
-    int inlineSize = 73;
-    char newlineCharacter = '\n';
        
    static void Main(string[] args)
     {
@@ -32,8 +13,6 @@ class Program
         Console.WriteLine("Welcome to FlappyAPP!");
         Console.WriteLine("This is a simple console application that simulates a flappy bird game.");
         Console.WriteLine("This application has the obstacle generation feature enabled.");
-       var program = new Program();
-        program.Game();
 
         int row = 12;
         int column = 73;
@@ -66,14 +45,14 @@ class Program
             {
                 BlockStartCylinderPipe(CylinderRow, column, Obstacle);
             }
-            else if (newHeight == i)
+            else
             {
                 //  TODO: Add a Figure to the game area
                 BlockStartColumns(1, newlineCharacter);
                 Console.Write("\n");
 
             }
-            else Columns(Obstacle: newlineCharacter);
+
         }
     }
 
