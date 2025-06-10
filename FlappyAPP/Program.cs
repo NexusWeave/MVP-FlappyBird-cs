@@ -13,8 +13,6 @@ class Program
 
         DrawGameArea();
 
-
-        
     }
 
     static void DrawGameArea()
