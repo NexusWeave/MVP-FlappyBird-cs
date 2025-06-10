@@ -9,7 +9,6 @@ class Program
        
    static void Main(string[] args)
     {
-
         Console.WriteLine("Welcome to FlappyAPP!");
         Console.WriteLine("This is a simple console application that simulates a flappy bird game.");
         Console.WriteLine("This application has the obstacle generation feature enabled.");
