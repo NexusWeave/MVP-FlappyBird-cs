@@ -21,7 +21,6 @@ class Program
 
     static void DrawGameArea(int row, int column, string Obstacle)
     {
-
         int CylinderRow = 6;
         string newlineCharacter = "(space)";
 
@@ -49,9 +48,7 @@ class Program
                 //  TODO: Add a Figure to the game area
                 BlockStartColumns(1, newlineCharacter);
                 Console.Write("\n");
-
             }
-
         }
     }
 
@@ -61,30 +58,29 @@ class Program
         {
             Console.Write(Obstacle);
         }
-        
     }
 
     static void BlockEndColumns(int column, string Obstacle)
-    {
-        for (int i = column; i > 0; i--)
         {
-            Console.Write(Obstacle);
+            for (int i = column; i > 0; i--)
+            {
+                Console.Write(Obstacle);
+            }
         }
-    }
 
     static void BlockEndCylinderPipe(int row, int column, string Obstacle)
     {
         column /= 2;
         int CylinderColumn = 5;
 
-        Random random = new Random();
-        var space = random.Next(1, column);
+        //Random random = new Random();
+        //var space = random.Next(1, column);
 
         //  Rows
         for (int i = 0; i < row; i++)
         {
             // For every 25th column, draw a pipe
-            BlockEndColumns(space, " ");
+            BlockEndColumns(column, " ");
             BlockEndColumns(CylinderColumn, Obstacle);
             Console.Write("\n");
         }
@@ -95,14 +91,14 @@ class Program
         column /= 2;
         int CylinderColumn = 5;
 
-        Random random = new Random();
-        var space = random.Next(1, column);
+        //Random random = new Random();
+        //var space = random.Next(1, column);
 
         //  Rows
         for (int i = 0; i < row; i++)
         {
             // For every 25th column, draw a pipe
-            BlockEndColumns(space, " ");
+            BlockEndColumns(column, " ");
             BlockEndColumns(CylinderColumn, Obstacle);
             Console.Write("\n");
         }
