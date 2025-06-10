@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
 using System.Runtime.InteropServices;
+using System.Xml;
 
 namespace FlappyAPP;
 
@@ -75,11 +76,14 @@ class Program
         column /= 2;
         int CylinderColumn = 5;
 
+        Random random = new Random();
+        var space = random.Next(1, column);
+
         //  Rows
         for (int i = 0; i < row; i++)
         {
             // For every 25th column, draw a pipe
-            BlockEndColumns(column, " ");
+            BlockEndColumns(space, " ");
             BlockEndColumns(CylinderColumn, Obstacle);
             Console.Write("\n");
         }
@@ -91,12 +95,15 @@ class Program
         column /= 2;
         int CylinderColumn = 5;
 
+        Random random = new Random();
+        var space = random.Next(1, column);
+
         //  Rows
         for (int i = 0; i < row; i++)
         {
 
             // For every 25th column, draw a pipe
-            BlockEndColumns(column, " ");
+            BlockEndColumns(space, " ");
             BlockEndColumns(CylinderColumn, Obstacle);
             Console.Write("\n");
         }
