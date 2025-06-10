@@ -43,7 +43,6 @@ class Program
             else if (i == row - 2)
             {
                 BlockStartCylinderPipe(CylinderRow, column, Obstacle);
-                Console.Write("\n");
             }
             else
             {
