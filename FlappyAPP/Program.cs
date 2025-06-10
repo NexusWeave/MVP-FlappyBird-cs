@@ -1,48 +1,68 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System;
+﻿using System.Data;
 
-namespace FlappyAPP;
+string[] wingUp = {
+    "  \\   /  ",
+    "   \\0/   ",
+    "          "
+};
+string[] wingDown = {
+    "         ",
+    "   /0\\  ",
+    "  /   \\ "
+};
+int consoleHeightMax = 21;
+int consoleHeightMin = 0;
+int Height = 10;
+int newHeight = 10;
+bool isWingUp = true;
 
-class Program
+while (true)
 {
-    static void Main(string[] args)
+
+    DrawFlight();
+
+    Thread.Sleep(100);
+    Console.Clear();
+}
+
+void DrawBird()
+{
+    if (!isWingUp && Height <= newHeight)
     {
-        Console.WriteLine("Welcome to FlappyAPP!");
-        Console.WriteLine("This is a simple console application that simulates a flappy bird game.");
-        Console.WriteLine("This application has the obstacle generation feature enabled.");
-
-        DrawGameArea();
-
+        isWingUp = true; foreach (var line in wingUp) Console.WriteLine(line);
     }
 
-    static void DrawGameArea()
+    else
     {
-        int blockSize = 21;
-        int inlineSize = 73;
-        char newlineCharacter = '\n';
-
-        //  Row
-        for (int i = 0; i < blockSize; i++)
-        {
-            if (i == 0 || i == blockSize - 1)
-            {
-                //  Column
-                Columns(inlineSize);
-            }
-            else
-            {
-                Columns(Obstacle: newlineCharacter);
-            }
-        }
-    }
-
-    static void Columns(int inlineSize = 1, char Obstacle = '#')
-    {
-        for (int j = 0; j < inlineSize; j++)
-        {
-            Console.Write(Obstacle);
-        }
+        isWingUp = false; foreach (var line in wingDown) Console.WriteLine(line);
     }
 }
- 
+
+int SetFlightHight()
+{
+    if (Console.KeyAvailable)
+    {
+        var key = Console.ReadKey(true).Key;
+        if (key == ConsoleKey.Spacebar) { Height--; }
+    }
+    else
+    {
+        Height++;
+    }
+    return Height;
+}
+
+void DrawFlight()
+{
+    int newFlightHight = SetFlightHight();
+    for (int i = 0; i < newFlightHight; i++)
+    {
+        Console.WriteLine(" ");
+    }
+
+    DrawBird();
+    newHeight = newFlightHight;
+}
+
+
 
