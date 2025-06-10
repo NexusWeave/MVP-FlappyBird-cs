@@ -16,7 +16,6 @@ class Program
         int column = 73;
 
         DrawGameArea(row, column, "#");
-
     }
 
     static void DrawGameArea(int row, int column, string Obstacle)
@@ -34,6 +33,7 @@ class Program
                 //  Column
                 BlockStartColumns(column, Obstacle);
             }
+
             else if (i == 1)
             {
                 BlockEndCylinderPipe(CylinderRow, CylinderColumn, Obstacle);
@@ -72,9 +72,13 @@ class Program
         //  Rows
         for (int i = 0; i < row; i++)
         {
+            
+            
+            // For every 25th column, draw a pipe
             BlockEndColumns(column, Obstacle);
         }
     }
+
     static void BlockStartCylinderPipe(int row, int column, string Obstacle)
     {
         //  Rows
