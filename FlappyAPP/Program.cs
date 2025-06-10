@@ -2,24 +2,91 @@
 using System;
 
 namespace FlappyAPP;
-
 class Program
 {
-    static void Main(string[] args)
+
+    string[] wingUp = {
+    "  \\   /  ",
+    "   \\0/   ",
+    "          "
+};
+    string[] wingDown = {
+    "         ",
+    "   /0\\  ",
+    "  /   \\ "
+};
+
+    int oldHeight = 10;
+    int Height = 10;
+    int newHeight = 10;
+    bool isWingUp = true;
+    int blockSize = 21;
+    int inlineSize = 73;
+    char newlineCharacter = '\n';
+       
+   static void Main(string[] args)
     {
+
         Console.WriteLine("Welcome to FlappyAPP!");
         Console.WriteLine("This is a simple console application that simulates a flappy bird game.");
         Console.WriteLine("This application has the obstacle generation feature enabled.");
-
-        DrawGameArea();
+       var program = new Program();
+        program.Game();
 
     }
 
-    static void DrawGameArea()
+    void Game()
     {
-        int blockSize = 21;
-        int inlineSize = 73;
-        char newlineCharacter = '\n';
+        while (true)
+        {
+            Console.Write(Height);
+            DrawFlight();
+            DrawGameArea();
+            Thread.Sleep(300);
+            Console.Clear();
+        }
+    }
+
+    void DrawBird()
+    {
+        if (!isWingUp && oldHeight >= newHeight)
+        {
+            isWingUp = true; foreach (var line in wingUp) Console.WriteLine(line);
+        }
+
+        else
+        {
+            isWingUp = false; foreach (var line in wingDown) Console.WriteLine(line);
+        }
+        oldHeight = newHeight;
+    }
+
+    int SetFlightHight()
+    {
+        if (Console.KeyAvailable)
+        {
+            var key = Console.ReadKey(true).Key;
+            if (key == ConsoleKey.Spacebar) { Height--; }
+        }
+        else
+        {
+            Height++;
+        }
+        return Height;
+    }
+
+    void DrawFlight()
+    {
+        int newFlightHight = SetFlightHight();
+        if (newFlightHight < 1) Height = 1;
+        if (newFlightHight > 18) Height = 18;
+        newHeight = newFlightHight;
+    }
+
+
+    void DrawGameArea()
+    {
+
 
         //  Row
         for (int i = 0; i < blockSize; i++)
@@ -29,14 +96,16 @@ class Program
                 //  Column
                 Columns(inlineSize);
             }
-            else
+            else if (newHeight == i)
             {
-                Columns(Obstacle: newlineCharacter);
+                DrawBird();
             }
+            else Columns(Obstacle: newlineCharacter);
         }
     }
 
-    static void Columns(int inlineSize = 1, char Obstacle = '#')
+
+    void Columns(int inlineSize = 1, char Obstacle = '#')
     {
         for (int j = 0; j < inlineSize; j++)
         {
@@ -44,5 +113,17 @@ class Program
         }
     }
 }
- 
 
+
+
+
+/*void CheckSpaceBarAction() //under sjekk og testing for å cleare spacebar hold problemet
+{
+    if (Console.KeyAvailable)
+    {
+        var key = Console.ReadKey(true).Key;
+        if (key == ConsoleKey.Spacebar && !isSpcebarPressed) { isSpcebarPressed = true; }
+        while (Console.KeyAvailable) Console.ReadKey(true);
+    }
+    DrawFlight();
+}*/
