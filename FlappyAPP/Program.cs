@@ -22,7 +22,7 @@ class Program
 
     static void DrawGameArea(int row, int column, string Obstacle)
     {
-        int n = column / 3;
+        int n = column/ 4;
         int CylinderRow = 6;
         string newlineCharacter = "(space)";
 
@@ -32,14 +32,13 @@ class Program
             {
                 if (i == 0 || i == row - 1)
                 {
-                    //  Column
                     DrawColumns(column, Obstacle);
                     Console.Write("\n");
                 }
                 else if (i == 1 || i == row - 2)
                 {
-
-                    DrawCylinder(CylinderRow, n, Obstacle);
+                    bool boolean = n < 8 ? true : false;
+                    DrawCylinder(CylinderRow, n, Obstacle, boolean);
                 }
 
                 else
@@ -47,22 +46,18 @@ class Program
                     //  TODO: Add a Figure to the game area
                     DrawColumns(1, newlineCharacter);
                     Console.Write("\n");
-
                 }
             }
-
             Thread.Sleep(250);
             Console.Clear();
 
             n--;
 
-            if (n == 16)
-            {
-                n = column; // Reset the column count to the original value
-                // Add a new obstacle
-                //DrawCylinder(CylinderRow, column, Obstacle);
-            }
-
+            if (n == 0)
+                {
+                    // Reset the column count
+                    n = column - 20;
+                }
         }
     }
 
@@ -75,20 +70,30 @@ class Program
     }
 
 
-    static void DrawCylinder(int row, int column, string Obstacle)
+    static void DrawCylinder(int row, int column, string Obstacle, bool boolean)
     {
+
+        const int n = 50;
+        column--;
         int CylinderColumn = 5;
-
-        var space = column-10;
-        space--;
-
+        
         for (int i = 0; i < row; i++)
-        {
-            // For every 25th column, draw a pipe
-            DrawColumns(space, " ");
-            DrawColumns(CylinderColumn, Obstacle);
-            Console.Write("\n");
-        }
+            {
+                // For every 25th column, draw a pipe
+                DrawColumns(column, " ");
+                DrawColumns(CylinderColumn, Obstacle);
+
+                if (column < 15)
+            {
+                DrawColumns(n, " ");
+            }
+                if (boolean)
+                {
+                    DrawColumns(CylinderColumn, Obstacle);
+                }
+
+                Console.Write("\n");
+            }
     }
 }
 
