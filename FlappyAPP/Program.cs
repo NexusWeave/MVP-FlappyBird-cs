@@ -22,15 +22,12 @@ class Program
 
     static void DrawGameArea(int row, int column, string Obstacle)
     {
+        int n = 18;
         int CylinderRow = 6;
-        int n = column;
         string newlineCharacter = "(space)";
-
-        //  Row
 
         while (true)
         {
-
             for (int i = 0; i < row; i++)
             {
                 if (i == 0 || i == row - 1)
@@ -53,9 +50,12 @@ class Program
 
                 }
             }
+
             Thread.Sleep(250);
             Console.Clear();
+
             n--;
+
             if (n == 18)
             {
                 n = column;
