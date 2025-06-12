@@ -17,42 +17,56 @@ class Program
         int column = 73;
 
         DrawGameArea(row, column, "#");
+
     }
 
     static void DrawGameArea(int row, int column, string Obstacle)
     {
+        int n = column / 3;
         int CylinderRow = 6;
         string newlineCharacter = "(space)";
 
-        //  Row
-        for (int i = 0; i < row; i++)
+        while (true)
         {
-            if (i == 0 || i == row - 1)
+            for (int i = 0; i < row; i++)
             {
-                //  Column
-                BlockStartColumns(column, Obstacle);
-                Console.Write("\n");
+                if (i == 0 || i == row - 1)
+                {
+                    //  Column
+                    DrawColumns(column, Obstacle);
+                    Console.Write("\n");
+                }
+                else if (i == 1 || i == row - 2)
+                {
+
+                    DrawCylinder(CylinderRow, n, Obstacle);
+                }
+
+                else
+                {
+                    //  TODO: Add a Figure to the game area
+                    DrawColumns(1, newlineCharacter);
+                    Console.Write("\n");
+
+                }
             }
 
-            else if (i == 1)
+            Thread.Sleep(250);
+            Console.Clear();
+
+            n--;
+
+            if (n == 16)
             {
-                BlockEndCylinderPipe(CylinderRow, column, Obstacle);
-                Console.Write("\n");
+                n = column; // Reset the column count to the original value
+                // Add a new obstacle
+                //DrawCylinder(CylinderRow, column, Obstacle);
             }
-            else if (i == row - 2)
-            {
-                BlockStartCylinderPipe(CylinderRow, column, Obstacle);
-            }
-            else
-            {
-                //  TODO: Add a Figure to the game area
-                BlockStartColumns(1, newlineCharacter);
-                Console.Write("\n");
-            }
+
         }
     }
 
-    static void BlockStartColumns(int column, string Obstacle)
+    static void DrawColumns(int column, string Obstacle)
     {
         for (int i = 0; i < column; i++)
         {
@@ -60,46 +74,19 @@ class Program
         }
     }
 
-    static void BlockEndColumns(int column, string Obstacle)
-        {
-            for (int i = column; i > 0; i--)
-            {
-                Console.Write(Obstacle);
-            }
-        }
 
-    static void BlockEndCylinderPipe(int row, int column, string Obstacle)
+    static void DrawCylinder(int row, int column, string Obstacle)
     {
-        column /= 2;
         int CylinderColumn = 5;
 
-        //Random random = new Random();
-        //var space = random.Next(1, column);
+        var space = column-10;
+        space--;
 
-        //  Rows
         for (int i = 0; i < row; i++)
         {
             // For every 25th column, draw a pipe
-            BlockEndColumns(column, " ");
-            BlockEndColumns(CylinderColumn, Obstacle);
-            Console.Write("\n");
-        }
-    }
-
-    static void BlockStartCylinderPipe(int row, int column, string Obstacle)
-    {
-        column /= 2;
-        int CylinderColumn = 5;
-
-        //Random random = new Random();
-        //var space = random.Next(1, column);
-
-        //  Rows
-        for (int i = 0; i < row; i++)
-        {
-            // For every 25th column, draw a pipe
-            BlockEndColumns(column, " ");
-            BlockEndColumns(CylinderColumn, Obstacle);
+            DrawColumns(space, " ");
+            DrawColumns(CylinderColumn, Obstacle);
             Console.Write("\n");
         }
     }
