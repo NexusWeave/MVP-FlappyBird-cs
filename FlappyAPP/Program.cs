@@ -22,7 +22,7 @@ class Program
 
     static void DrawGameArea(int row, int column, string Obstacle)
     {
-        int n = column;
+        int n = column / 3;
         int CylinderRow = 6;
         string newlineCharacter = "(space)";
 
@@ -56,8 +56,9 @@ class Program
 
             n--;
 
-            if (n == 18)
+            if (n == 16)
             {
+                n = column; // Reset the column count to the original value
                 // Add a new obstacle
                 //DrawCylinder(CylinderRow, column, Obstacle);
             }
