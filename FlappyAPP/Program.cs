@@ -38,8 +38,7 @@ class Program
                 {
                     
                     bool boolean = n < 8 ? true : false;
-                    
-                   
+
                    if (boolean && newColumn < CylinderRow - 1)
                     {
                         newColumn++;
