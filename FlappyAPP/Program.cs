@@ -3,7 +3,6 @@
 namespace FlappyAPP;
 class Program
 {
-       
    static void Main(string[] args)
     {
         Console.WriteLine("Welcome to FlappyAPP!");
@@ -73,7 +72,6 @@ class Program
             Console.Write(Obstacle);
         }
     }
-
 
     static void DrawCylinder(int row, int column, string Obstacle, bool boolean, int counter)
     {
