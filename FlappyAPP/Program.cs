@@ -1,12 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System;
-using System.Runtime.InteropServices;
-using System.Xml;
 
 namespace FlappyAPP;
 class Program
 {
-       
    static void Main(string[] args)
     {
         Console.WriteLine("Welcome to FlappyAPP!");
@@ -17,7 +13,6 @@ class Program
         int column = 73;
 
         DrawGameArea(row, column, "#");
-
     }
 
     static void DrawGameArea(int row, int column, string Obstacle)
