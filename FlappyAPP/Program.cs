@@ -69,7 +69,6 @@ class Program
         }
     }
 
-
     static void DrawCylinder(int row, int column, string Obstacle, bool boolean)
     {
 
@@ -84,9 +83,9 @@ class Program
                 DrawColumns(CylinderColumn, Obstacle);
 
                 if (column < 15)
-            {
-                DrawColumns(n, " ");
-            }
+                {
+                    DrawColumns(n, " ");
+                }
                 if (boolean)
                 {
                     DrawColumns(CylinderColumn, Obstacle);
