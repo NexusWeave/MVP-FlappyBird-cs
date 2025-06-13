@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Runtime.InteropServices;
+
 namespace FlappyAPP;
 class Program
 {
@@ -18,8 +20,9 @@ class Program
     static void DrawGameArea(int row, int column, string Obstacle)
     {
         int newColumn = 0;
-        int n = column/ 4;
-        int CylinderRow = 6;
+        int n = column / 4;
+        int CylinderRow = column / 12;
+        
         string newlineCharacter = "(space)";
 
         while (true)
@@ -37,7 +40,7 @@ class Program
                     bool boolean = n < 8 ? true : false;
                     
                    
-                   if (boolean && newColumn < CylinderRow )
+                   if (boolean && newColumn < CylinderRow - 1)
                     {
                         newColumn++;
                     }
@@ -58,10 +61,11 @@ class Program
             n--;
 
             if (n == 0)
-                {
-                    // Reset the column count
-                    n = 58;
-                }
+            {
+                // Reset the column count
+                n = (int)(column / 1.25);
+                newColumn = 0;
+            }
         }
     }
 
