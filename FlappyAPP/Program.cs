@@ -18,6 +18,7 @@ class Program
 
     static void DrawGameArea(int row, int column, string Obstacle)
     {
+        int newColumn = 0;
         int n = column/ 4;
         int CylinderRow = 6;
         string newlineCharacter = "(space)";
@@ -33,8 +34,16 @@ class Program
                 }
                 else if (i == 1 || i == row - 2)
                 {
+                    
                     bool boolean = n < 8 ? true : false;
-                    DrawCylinder(CylinderRow, n, Obstacle, boolean);
+                    
+                   
+                   if (boolean && newColumn < CylinderRow )
+                    {
+                        newColumn++;
+                    }
+
+                    DrawCylinder(CylinderRow, n, Obstacle, boolean, newColumn);
                 }
 
                 else
@@ -52,7 +61,7 @@ class Program
             if (n == 0)
                 {
                     // Reset the column count
-                    n = column - 20;
+                    n = 58;
                 }
         }
     }
@@ -66,29 +75,30 @@ class Program
     }
 
 
-    static void DrawCylinder(int row, int column, string Obstacle, bool boolean)
+    static void DrawCylinder(int row, int column, string Obstacle, bool boolean, int counter)
     {
-        const int n = 50;
         column--;
+        const int n = 55;
         int CylinderColumn = 5;
-        
+
         for (int i = 0; i < row; i++)
         {
-                // For every 25th column, draw a pipe
-                DrawColumns(column, " ");
-                DrawColumns(CylinderColumn, Obstacle);
+            // For every 25th column, draw a pipe
+            DrawColumns(column, " ");
+            DrawColumns(CylinderColumn, Obstacle);
 
             if (column < 15)
             {
                 DrawColumns(n, " ");
             }
+
             if (boolean)
             {
-                DrawColumns(CylinderColumn, Obstacle);
-            }
+                DrawColumns(counter, Obstacle);
 
-                Console.Write("\n");
-         }
+            }
+            Console.Write("\n");
+        }
     }
 }
 
