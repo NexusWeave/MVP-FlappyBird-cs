@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Runtime.InteropServices;
+
 namespace FlappyAPP;
 class Program
 {
@@ -17,8 +19,10 @@ class Program
 
     static void DrawGameArea(int row, int column, string Obstacle)
     {
-        int n = column/ 4;
-        int CylinderRow = 6;
+        int newColumn = 0;
+        int n = column / 4;
+        int CylinderRow = column / 12;
+        
         string newlineCharacter = "(space)";
 
         while (true)
@@ -32,8 +36,15 @@ class Program
                 }
                 else if (i == 1 || i == row - 2)
                 {
+                    
                     bool boolean = n < 8 ? true : false;
-                    DrawCylinder(CylinderRow, n, Obstacle, boolean);
+
+                   if (boolean && newColumn < CylinderRow - 1)
+                    {
+                        newColumn++;
+                    }
+
+                    DrawCylinder(CylinderRow, n, Obstacle, boolean, newColumn);
                 }
 
                 else
@@ -49,10 +60,11 @@ class Program
             n--;
 
             if (n == 0)
-                {
-                    // Reset the column count
-                    n = column - 20;
-                }
+            {
+                // Reset the column count
+                n = (int)(column / 1.25);
+                newColumn = 0;
+            }
         }
     }
 
@@ -64,30 +76,30 @@ class Program
         }
     }
 
-    static void DrawCylinder(int row, int column, string Obstacle, bool boolean)
+    static void DrawCylinder(int row, int column, string Obstacle, bool boolean, int counter)
     {
-
-        const int n = 50;
         column--;
+        const int n = 55;
         int CylinderColumn = 5;
-        
+
         for (int i = 0; i < row; i++)
+        {
+            // For every 25th column, draw a pipe
+            DrawColumns(column, " ");
+            DrawColumns(CylinderColumn, Obstacle);
+
+            if (column < 15)
             {
-                // For every 25th column, draw a pipe
-                DrawColumns(column, " ");
-                DrawColumns(CylinderColumn, Obstacle);
-
-                if (column < 15)
-                {
-                    DrawColumns(n, " ");
-                }
-                if (boolean)
-                {
-                    DrawColumns(CylinderColumn, Obstacle);
-                }
-
-                Console.Write("\n");
+                DrawColumns(n, " ");
             }
+
+            if (boolean)
+            {
+                DrawColumns(counter, Obstacle);
+
+            }
+            Console.Write("\n");
+        }
     }
 }
 
