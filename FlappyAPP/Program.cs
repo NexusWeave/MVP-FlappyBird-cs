@@ -17,7 +17,6 @@ class Program
         int column = 73;
 
         DrawGameArea(row, column, "#");
-
     }
 
     static void DrawGameArea(int row, int column, string Obstacle)
@@ -72,18 +71,17 @@ class Program
 
     static void DrawCylinder(int row, int column, string Obstacle, bool boolean)
     {
-
         const int n = 50;
         column--;
         int CylinderColumn = 5;
         
         for (int i = 0; i < row; i++)
-            {
+        {
                 // For every 25th column, draw a pipe
                 DrawColumns(column, " ");
                 DrawColumns(CylinderColumn, Obstacle);
 
-                if (column < 15)
+            if (column < 15)
             {
                 DrawColumns(n, " ");
             }
@@ -93,7 +91,7 @@ class Program
                 }
 
                 Console.Write("\n");
-            }
+         }
     }
 }
 
