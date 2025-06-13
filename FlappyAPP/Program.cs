@@ -82,10 +82,10 @@ class Program
             {
                 DrawColumns(n, " ");
             }
-                if (boolean)
-                {
-                    DrawColumns(CylinderColumn, Obstacle);
-                }
+            if (boolean)
+            {
+                DrawColumns(CylinderColumn, Obstacle);
+            }
 
                 Console.Write("\n");
          }
