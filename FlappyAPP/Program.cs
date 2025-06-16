@@ -12,6 +12,7 @@ class Program
         "   /0\\   ",
         "  /   \\  "
     };
+
     static int row = 20;
     static int column = 73;
     static int score = 0;
