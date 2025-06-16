@@ -12,26 +12,25 @@ class Program
         "   /0\\   ",
         "  /   \\  "
     };
-
+    static int row = 20;
+    static int column = 73;
+    static int score = 0;
     static int birdRow = 6;
     static int birdCol = 10;
     static int velocity = 0;
     static bool isWingUp = true;
     static int pipeX;
-    static readonly int pipeGapTop = 4;
-    static readonly int pipeGapBottom = 14;
+    static int pipeGapTop = 4;
+    static int pipeGapBottom = 14;
 
-    static void Main(string[] args)
+    static void Main()
     {
         ConsoleConfig();
         Console.Clear();
-
         Console.WriteLine("Welcome to FlappyAPP!");
         Console.WriteLine("Press any key to start...");
         Console.ReadKey(true);
 
-        int row = 20;
-        int column = 73;
         pipeX = column - 1;
 
         DrawGameArea(row, column, '█');
@@ -45,20 +44,26 @@ class Program
 
         while (true)
         {
+
             if (Console.KeyAvailable)
             {
                 if (Console.ReadKey(true).Key == ConsoleKey.Spacebar)
                 {
                     velocity = -2;
-                    isWingUp = true;
+
+                    if (isWingUp) isWingUp = false;
+                    else isWingUp = true;
                 }
                 while (Console.KeyAvailable) Console.ReadKey(true);
             }
             
             velocity += 1;
+
             if (velocity > 1) velocity = 1;
             birdRow += velocity;
+
             if (birdRow < 1) birdRow = 1;
+
             if (birdRow > row - 4) birdRow = row - 4;
 
             if (velocity > 0) isWingUp = false;
@@ -72,16 +77,21 @@ class Program
 
             if ((pipeX <= birdHitboxEnd && pipeX + 2 >= birdHitboxStart) &&
                 (birdRow <= pipeGapTop || birdRow + 2 >= pipeGapBottom))
-            {
                 GameOver();
-                return;
-            }
-            if (birdRow + 2 >= row - 1)
+
+            if (birdHitboxEnd  == pipeX + 3)
             {
-                GameOver();
-                return;
+                score += 1;
+                if(pipeGapTop < 6)
+                {
+                    pipeGapTop += 1;
+                    pipeGapBottom -= 1;
+                }
             }
-            
+  
+
+            if (birdRow + 1 >= row - 3) GameOver();
+
             for (int y = 0; y < bufferHeight; y++)
                 for (int x = 0; x < bufferWidth; x++)
                     buffer[y, x] = ' ';
@@ -95,7 +105,9 @@ class Program
             DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
             DrawBirdInBuffer(buffer, birdCol, birdRow);
             
-            Console.SetCursorPosition(0, 0);
+            Console.SetCursorPosition(37, 0);
+            Console.WriteLine("Score: " + score, Console.ForegroundColor = ConsoleColor.Black);
+            Console.SetCursorPosition(0, 1);
             for (int y = 0; y < bufferHeight; y++)
             {
                 for (int x = 0; x < bufferWidth; x++)
@@ -109,7 +121,6 @@ class Program
                 }
                 Console.WriteLine();
             }
-
             Thread.Sleep(100);
         }
     }
@@ -144,7 +155,7 @@ class Program
         {
             if (y < gapTop || y > gapBottom)
             {
-                for (int x = 0; x < 3; x++)
+                for (int x = 0; x < 5; x++)
                 {
                     int px = pipeX + x;
                     if (px >= 0 && px < buffer.GetLength(1))
@@ -156,12 +167,38 @@ class Program
 
     static void GameOver()
     {
+        DrawGameOverScreen();
+
+        if (Console.ReadKey(true).Key == ConsoleKey.Escape) return;
+        else 
+        {
+            ResetGame();
+        }
+    }
+
+    static void DrawGameOverScreen()
+    {
+        Console.Clear();
+        Console.SetCursorPosition(16, 8);
+        Console.WriteLine("Score: " + score, Console.ForegroundColor = ConsoleColor.Black);
         Console.SetCursorPosition(20, 10);
+
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("GAME OVER!");
         Console.SetCursorPosition(20, 11);
-        Console.WriteLine("Press any key to exit");
-        Console.ReadKey(true);
+        Console.WriteLine("Press Escape key to exit");
+        Console.WriteLine("Press any other Key to restart Game");
+    }
+
+    static void ResetGame()
+    {
+        score = 0;
+        birdRow = 6;
+        birdCol = 10;
+        velocity = 0;
+        isWingUp = true;
+        pipeX = 72;
+        Main();
     }
 
     static void ConsoleConfig()
