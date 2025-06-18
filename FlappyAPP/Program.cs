@@ -25,8 +25,7 @@ class Program
     static int pipeGapBottom = 14;
 
     static void Main()
-    {
-        ConsoleConfig();
+    {   Background.MakeBackground();
         Console.Clear();
         Console.WriteLine("Welcome to FlappyAPP!");
         Console.WriteLine("Press any key to start...");
@@ -103,7 +102,7 @@ class Program
                 buffer[bufferHeight - 1, x] = obstacleChar;
             }
             
-            DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
+            Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
             DrawBirdInBuffer(buffer, birdCol, birdRow);
             
             Console.SetCursorPosition(37, 0);
@@ -150,25 +149,11 @@ class Program
         }
     }
 
-    static void DrawPipeInBuffer(char[,] buffer, int pipeX, int gapTop, int gapBottom, char obstacleChar)
-    {
-        for (int y = 1; y < buffer.GetLength(0) - 1; y++)
-        {
-            if (y < gapTop || y > gapBottom)
-            {
-                for (int x = 0; x < 5; x++)
-                {
-                    int px = pipeX + x;
-                    if (px >= 0 && px < buffer.GetLength(1))
-                        buffer[y, px] = obstacleChar;
-                }
-            }
-        }
-    }
+
 
     static void GameOver()
     {
-        DrawGameOverScreen();
+        ScreenText.DrawGameOverScreen(score);
 
         if (Console.ReadKey(true).Key == ConsoleKey.Escape) return;
         else 
@@ -176,21 +161,7 @@ class Program
             ResetGame();
         }
     }
-
-    static void DrawGameOverScreen()
-    {
-        Console.Clear();
-        Console.SetCursorPosition(16, 8);
-        Console.WriteLine("Score: " + score, Console.ForegroundColor = ConsoleColor.Black);
-        Console.SetCursorPosition(20, 10);
-
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("GAME OVER!");
-        Console.SetCursorPosition(20, 11);
-        Console.WriteLine("Press Escape key to exit");
-        Console.WriteLine("Press any other Key to restart Game");
-    }
-
+    
     static void ResetGame()
     {
         score = 0;
@@ -202,11 +173,5 @@ class Program
         Main();
     }
 
-    static void ConsoleConfig()
-    {
-        Console.Title = "FlappyAPP";
-        Console.BackgroundColor = ConsoleColor.Cyan;
-        Console.ForegroundColor = ConsoleColor.Black;
-        Console.OutputEncoding = System.Text.Encoding.UTF8;
-    }
+    
 }
