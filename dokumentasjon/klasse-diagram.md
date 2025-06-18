@@ -1,4 +1,4 @@
-#	Klassene i Applikasjonen
+#	FlappyAPP klassehieraki
 
 ```mermaid
 classDiagram
