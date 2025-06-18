@@ -1,3 +1,6 @@
+#	Klassene i Applikasjonen
+
+```mermaid
 classDiagram
 
 direction TB
@@ -45,4 +48,5 @@ direction TB
     GameLogic --> Obstacle : manages
     GameLogic --> Background : draws
     GameLogic --> ConsoleConfig : depends on
+```
 
