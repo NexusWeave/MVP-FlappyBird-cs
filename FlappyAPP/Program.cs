@@ -1,4 +1,6 @@
-﻿namespace FlappyAPP;
+﻿using System.Threading.Tasks.Dataflow;
+
+namespace FlappyAPP;
 class Program
 {
     static string[] wingUp = {
@@ -27,8 +29,7 @@ class Program
     static void Main()
     {   Background.MakeBackground();
         Console.Clear();
-        Console.WriteLine("Welcome to FlappyAPP!");
-        Console.WriteLine("Press any key to start...");
+        DrawGameStartScreen();
         Console.ReadKey(true);
 
         pipeX = column - 1;
@@ -36,30 +37,22 @@ class Program
         DrawGameArea(row, column, '█');
     }
 
-    static void DrawGameArea(int row, int column, char obstacleChar)
+    static void DrawGameArea(int bufferHeight, int bufferWidth, char obstacleChar)
     {
-        int bufferHeight = row;
-        int bufferWidth = column;
         char[,] buffer = new char[bufferHeight, bufferWidth];
 
         while (true)
         {
+            //  ConsoleUtils
+            ConsoleUtilsAvailable();
 
-            if (Console.KeyAvailable)
-            {
-                if (Console.ReadKey(true).Key == ConsoleKey.Spacebar)
-                {
-                    velocity = -2;
-
-                    if (isWingUp) isWingUp = false;
-                    else isWingUp = true;
-                }
-                while (Console.KeyAvailable) Console.ReadKey(true);
-            }
+            ResetVelocity();
             
-            velocity += 1;
+            pipeX--;
 
-            if (velocity > 1) velocity = 1;
+            if (pipeX < -3)
+                pipeX = bufferWidth;
+
             birdRow += velocity;
 
             if (birdRow < 1) birdRow = 1;
@@ -67,30 +60,9 @@ class Program
             if (birdRow > row - 4) birdRow = row - 4;
 
             if (velocity > 0) isWingUp = false;
-            
-            pipeX--;
-            if (pipeX < -3)
-                pipeX = bufferWidth;
-            
-            int birdHitboxStart = birdCol + 1; 
-            int birdHitboxEnd = birdCol + 1;
 
-            if ((pipeX <= birdHitboxEnd && pipeX + 2 >= birdHitboxStart) &&
-                (birdRow <= pipeGapTop || birdRow + 2 >= pipeGapBottom))
-                GameOver();
-
-            if (birdHitboxEnd  == pipeX + 3)
-            {
-                score += 1;
-                if(pipeGapTop < 6)
-                {
-                    pipeGapTop += 1;
-                    pipeGapBottom -= 1;
-                }
-            }
-  
-
-            if (birdRow + 1 >= row - 3) GameOver();
+            CollisionCheck(birdCol + 1, birdCol + 1);
+            ScoreIncrement(pipeX);
 
             for (int y = 0; y < bufferHeight; y++)
                 for (int x = 0; x < bufferWidth; x++)
@@ -104,25 +76,104 @@ class Program
             
             Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
             DrawBirdInBuffer(buffer, birdCol, birdRow);
-            
-            Console.SetCursorPosition(37, 0);
-            Console.WriteLine("Score: " + score, Console.ForegroundColor = ConsoleColor.Black);
-            Console.SetCursorPosition(0, 1);
-            for (int y = 0; y < bufferHeight; y++)
-            {
-                for (int x = 0; x < bufferWidth; x++)
-                {
-                    if (IsBirdPixel(buffer, y, x))
-                        Console.ForegroundColor = ConsoleColor.Black;
-                    else
-                        Console.ForegroundColor = ConsoleColor.Green;
 
-                    Console.Write(buffer[y, x]);
-                }
-                Console.WriteLine();
-            }
+            printScore();
+            
+
+            DrawSprite(bufferHeight, bufferWidth, buffer);
             Thread.Sleep(100);
         }
+    }
+    static void DrawSprite(int bufferHeight, int bufferWidth, char[,] buffer)
+    {
+        for (int y = 0; y < bufferHeight; y++)
+        {
+            for (int x = 0; x < bufferWidth; x++)
+            {
+                if (IsBirdPixel(buffer, y, x))
+                    Console.ForegroundColor = ConsoleColor.Black;
+                else
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                Console.Write(buffer[y, x]);
+            }
+            Console.WriteLine();
+
+        }
+    }
+    static void ResetVelocity()
+        {
+            velocity++;
+            if (velocity > 1) velocity = 1;
+        }
+    static void printScore()
+    {
+        Console.SetCursorPosition(37, 0);
+        Console.WriteLine("Score: " + score, Console.ForegroundColor = ConsoleColor.Black);
+        Console.SetCursorPosition(0, 1);
+
+    }
+    static void ScoreIncrement(int hitboxEnd)
+    {
+        if (hitboxEnd == pipeX + 3)
+        {
+            score += 1;
+            if (pipeGapTop < 6)
+            {
+                pipeGapTop += 1;
+                pipeGapBottom -= 1;
+            }
+        }
+    }
+
+    static void ConsoleUtilsAvailable()
+    {
+        if (Console.KeyAvailable)
+        {
+            if (Console.ReadKey(true).Key == ConsoleKey.Spacebar)
+            {
+                velocity = -2;
+
+                if (isWingUp) isWingUp = false;
+                else isWingUp = true;
+            }
+            while (Console.KeyAvailable) Console.ReadKey(true);
+        }
+    }
+
+    static void DrawGameStartScreen()
+    {
+        Console.Clear();
+        Console.WriteLine("Welcome to FlappyAPP!");
+        Console.WriteLine("Press any key to start...");
+        Console.ReadKey(true);
+
+        pipeX = column - 1;
+
+        DrawGameArea(row, column, '█');
+    }
+
+    static void Vertical_Movement(int bufferHeight)
+    {
+        if (birdRow < 1) birdRow = 1;
+
+    }
+    static void Horizontal_Movement(int bufferWidth)
+    {
+
+    }
+    static void Movement()
+    {
+
+    }
+    static void CollisionCheck(int hitboxStart, int hitboxEnd)
+    {
+
+        if (pipeX <= hitboxEnd && pipeX + 2 >= hitboxStart &&
+            (birdRow <= pipeGapTop || birdRow + 2 >= pipeGapBottom))
+            GameOver();
+
+        if (birdRow + 1 >= row - 3) GameOver();
     }
 
     static bool IsBirdPixel(char[,] buffer, int y, int x)
@@ -148,8 +199,6 @@ class Program
             }
         }
     }
-
-
 
     static void GameOver()
     {
