@@ -6,34 +6,13 @@ public class Sprite
     int velocity;
     bool isElivated;
 
-    public string Draw()
+    public void Draw()
     {
-        string[] wingUp = {
-            "  \\   /  ",
-            "   \\0/   ",
-        };
-
-        string[] wingDown = {
-            "   /0\\   ",
-            "  /   \\  "
-        };
-
-        return isElivated ? string.Join("\n", wingUp) : string.Join("\n", wingDown);
+        return ;
     }
 
     public void VerticalMovement()
     {
-        if (isElivated)
-        {
-            velocity++;
-            y -= velocity;
-            
-        }
-        else
-        {
-            velocity--;
-            y += velocity;
-        }
-    }
 
+    }
 }
