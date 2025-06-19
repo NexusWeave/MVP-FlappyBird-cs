@@ -77,7 +77,7 @@ class Program
             Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
             DrawBirdInBuffer(buffer, birdCol, birdRow);
 
-            printScore();
+            PrintScore();
 
             DrawSprite(bufferHeight, bufferWidth, buffer);
             Thread.Sleep(100);
@@ -105,7 +105,7 @@ class Program
             velocity++;
             if (velocity > 1) velocity = 1;
         }
-    static void printScore()
+    static void PrintScore()
     {
         Console.SetCursorPosition(37, 0);
         Console.WriteLine("Score: " + score, Console.ForegroundColor = ConsoleColor.Black);
@@ -113,17 +113,17 @@ class Program
 
     }
     static void ScoreIncrement(int hitboxEnd)
-    {
-        if (hitboxEnd == pipeX + 3)
         {
-            score += 1;
-            if (pipeGapTop < 6)
+            if (hitboxEnd == pipeX + 3)
             {
-                pipeGapTop += 1;
-                pipeGapBottom -= 1;
+                score += 1;
+                if (pipeGapTop < 6)
+                {
+                    pipeGapTop += 1;
+                    pipeGapBottom -= 1;
+                }
             }
         }
-    }
 
     static void ConsoleUtilsAvailable()
     {
@@ -207,6 +207,4 @@ class Program
         pipeX = 72;
         Main();
     }
-
-    
 }
