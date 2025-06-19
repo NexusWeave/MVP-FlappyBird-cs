@@ -12,7 +12,7 @@ direction TB
 	    +bool IsWingUp
 	    +Draw()
 	    +Move()
-	    +Jump()
+	    +Rise()
     }
 
     class Obstacle {
