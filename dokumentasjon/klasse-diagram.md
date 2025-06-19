@@ -6,7 +6,6 @@ classDiagram
 direction TB
 
     class Sprite {
-	    +int X
 	    +int Y
 	    +int Velocity
 	    +bool IsWingUp
