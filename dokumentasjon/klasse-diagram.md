@@ -11,8 +11,7 @@ direction TB
 	    +int Velocity
 	    +bool IsWingUp
 	    +Draw()
-	    +Move()
-	    +Rise()
+	    +VerticalMovements()
     }
 
     class Obstacle {
