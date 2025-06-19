@@ -62,7 +62,7 @@ class Program
             if (velocity > 0) isWingUp = false;
 
             CollisionCheck(birdCol + 1, birdCol + 1);
-            ScoreIncrement(pipeX);
+            ScoreIncrement(birdCol + 1);
 
             for (int y = 0; y < bufferHeight; y++)
                 for (int x = 0; x < bufferWidth; x++)
@@ -78,7 +78,6 @@ class Program
             DrawBirdInBuffer(buffer, birdCol, birdRow);
 
             printScore();
-            
 
             DrawSprite(bufferHeight, bufferWidth, buffer);
             Thread.Sleep(100);
@@ -153,19 +152,6 @@ class Program
         DrawGameArea(row, column, '█');
     }
 
-    static void Vertical_Movement(int bufferHeight)
-    {
-        if (birdRow < 1) birdRow = 1;
-
-    }
-    static void Horizontal_Movement(int bufferWidth)
-    {
-
-    }
-    static void Movement()
-    {
-
-    }
     static void CollisionCheck(int hitboxStart, int hitboxEnd)
     {
 
