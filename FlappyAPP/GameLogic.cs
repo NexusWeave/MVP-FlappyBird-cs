@@ -7,22 +7,17 @@ public class GameLogic
 
     public void Start()
     {
-
-        Background.MakeBackground();
-
-
     }
     public static void Update()
     {
 
     }
-    public static bool CheckCollision()
+    public static void CheckCollision()
     {
-        bool isCollision = false;
-
-        
-        return isCollision;
 
     }
+
+    public static void DrawGameArea()
+    {}
 
 }
