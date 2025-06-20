@@ -43,4 +43,11 @@ public class Sprite
 
         return buffer[y, x] == '/' || buffer[y, x] == '\\' || buffer[y, x] == '0';
     }
+
+    static void ResetVelocity(Sprite sprite)
+        {
+            sprite.velocity++;
+            if (sprite.velocity > 1) sprite.velocity = 1;
+        }
+
 }

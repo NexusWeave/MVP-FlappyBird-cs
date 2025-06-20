@@ -69,16 +69,21 @@ class Program
             Thread.Sleep(100);
         }
     }
+
+    // Obstacle Movement Logic
     static void HorizontalMovement(int x)
     {
         pipeX--;
-            if (pipeX < -3)
-                pipeX = x;
+        if (pipeX < -3)
+            pipeX = x;
     }
+
+    //  Sprite Movement Logic
     static void VerticalMovement()
     {
         birdRow += velocity;
     }
+    // Background
     static char[,] SetGameBorders(char[,] buffer, int y, char obstacleChar)
     {
         const int MIN_VALUE = 1;
@@ -89,6 +94,7 @@ class Program
         return buffer;
     }
 
+    //  Screen Reset Logic
     static char[,] ResetScreen(int bufferHeight, int bufferWidth, char[,] buffer, char space)
     {
         for (int y = 0; y < bufferHeight; y++)
@@ -100,6 +106,7 @@ class Program
         }
         return buffer;
     }
+
     static void DrawSprite(int bufferHeight, int bufferWidth, char[,] buffer)
     {
         for (int y = 0; y < bufferHeight; y++)
@@ -156,7 +163,6 @@ class Program
             while (Console.KeyAvailable) Console.ReadKey(true);
         }
     }
-
 
     static void DrawGameStartScreen()
     {
