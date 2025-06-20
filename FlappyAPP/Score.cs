@@ -4,9 +4,17 @@ class Score
 {
     public int score;
 
-    static public void Increment(Score Score)
+    static public void Increment(int hitboxEnd, int pipeX, Score Score, int pipeGapTop, int pipeGapBottom)
     {
-        Score.score++;
+        if (hitboxEnd == pipeX + 3)
+        {
+            Score.score += 1;
+            if (pipeGapTop < 6)
+            {
+                pipeGapTop += 1;
+                pipeGapBottom -= 1;
+            }
+        }
     }
 
     static public int GetScore(Score Score)
