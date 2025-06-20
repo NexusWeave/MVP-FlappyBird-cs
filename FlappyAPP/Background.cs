@@ -6,9 +6,12 @@ public class Background
     {
         ConsoleSettings.ConsoleConfig();
     }
-    public static char[,] SetGameBorders(char[,] buffer, int y, char obstacleChar)
+    public static char[,] SetGameBorders(char[,] buffer, char obstacleChar)
     {
-        for (int i = 0; i < buffer.GetLength(1); i++)
+        int x = buffer.GetLength(1);
+        int y = buffer.GetLength(0);
+
+        for (int i = 0; i < x; i++)
         {
             buffer[y - 1, i] = obstacleChar;
         }
