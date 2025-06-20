@@ -54,8 +54,6 @@ class Program
             //  Bird movement Logic
             VerticalMovement();
 
-
-
             CollisionCheck(birdCol + 1, birdCol + 1);
             ScoreIncrement(birdCol + 1);
 
