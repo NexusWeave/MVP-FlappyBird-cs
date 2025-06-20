@@ -52,8 +52,8 @@ class Program
             HorizontalMovement(bufferWidth);
 
             //  Bird movement Logic
-            Sprite.ResetVelocity(sprite);
-            Sprite.VerticalMovement(sprite);
+            velocity = Sprite.ResetVelocity(velocity);
+            birdRow = Sprite.VerticalMovement(birdRow, velocity);
 
             //GameLogic.CollisionCheck(birdCol + 1, birdCol + 1, pipeX + 2);
             Score.Increment(birdCol + 1, pipeX +3, score, pipeGapTop, pipeGapBottom);
@@ -80,7 +80,7 @@ class Program
     }
 
     //  Sprite Movement Logic
-               static void VerticalMovement()
+    static void VerticalMovement()
     {
         birdRow += velocity;
     }
