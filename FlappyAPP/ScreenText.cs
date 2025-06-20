@@ -17,7 +17,7 @@ public class ScreenText
     }
 
 
-    static void DrawGameStartScreen()
+    static public void DrawGameStartScreen()
     {
         Console.Clear();
         Console.WriteLine("Welcome to FlappyAPP!");
