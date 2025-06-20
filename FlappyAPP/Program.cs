@@ -27,10 +27,9 @@ class Program
     static int pipeGapBottom = 14;
 
     static void Main()
-    { Background.MakeBackground();
-        Console.Clear();
-        DrawGameStartScreen();
-        Console.ReadKey(true);
+    {
+        GameLogic.Start(row, column, '█');
+        
 
         pipeX = column - 1;
 
