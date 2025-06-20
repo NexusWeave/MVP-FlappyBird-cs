@@ -107,6 +107,8 @@ class Program
         return buffer;
     }
 
+
+    // Sprite Drawing Logic
     static void DrawSprite(int bufferHeight, int bufferWidth, char[,] buffer)
     {
         for (int y = 0; y < bufferHeight; y++)
@@ -124,11 +126,20 @@ class Program
 
         }
     }
+
     static void ResetVelocity()
-        {
-            velocity++;
-            if (velocity > 1) velocity = 1;
-        }
+    {
+        velocity++;
+        if (velocity > 1) velocity = 1;
+    }
+
+    static bool IsBirdPixel(char[,] buffer, int y, int x)
+    {
+        return buffer[y, x] == '/' || buffer[y, x] == '\\' || buffer[y, x] == '0';
+    }
+
+
+    //  Score Logic
     static void PrintScore()
     {
         Console.SetCursorPosition(37, 0);
@@ -136,19 +147,21 @@ class Program
         Console.SetCursorPosition(0, 1);
 
     }
+
     static void ScoreIncrement(int hitboxEnd)
+    {
+        if (hitboxEnd == pipeX + 3)
         {
-            if (hitboxEnd == pipeX + 3)
+            score += 1;
+            if (pipeGapTop < 6)
             {
-                score += 1;
-                if (pipeGapTop < 6)
-                {
-                    pipeGapTop += 1;
-                    pipeGapBottom -= 1;
-                }
+                pipeGapTop += 1;
+                pipeGapBottom -= 1;
             }
         }
+    }
 
+    //  Console Utils
     static void ConsoleUtilsAvailable()
     {
         if (Console.KeyAvailable)
@@ -164,6 +177,7 @@ class Program
         }
     }
 
+    // Game Screen Logic
     static void DrawGameStartScreen()
     {
         Console.Clear();
@@ -176,11 +190,23 @@ class Program
         DrawGameArea(row, column, '█');
     }
 
+    static void GameOver()
+    {
+        ScreenText.DrawGameOverScreen(score);
+
+        if (Console.ReadKey(true).Key == ConsoleKey.Escape) return;
+        else
+        {
+            ResetGame();
+        }
+    }
+    
+    //  Game Logic
     static void CollisionCheck(int hitboxStart, int hitboxEnd)
     {
 
         if (birdRow > row - 4) birdRow = row - 4;
-            if (velocity > 0) isWingUp = false;
+        if (velocity > 0) isWingUp = false;
 
         if (pipeX <= hitboxEnd && pipeX + 2 >= hitboxStart &&
             (birdRow <= pipeGapTop || birdRow + 2 >= pipeGapBottom))
@@ -189,11 +215,17 @@ class Program
         if (birdRow + 1 >= row - 3) GameOver();
     }
 
-    static bool IsBirdPixel(char[,] buffer, int y, int x)
+    static void ResetGame()
     {
-        return buffer[y, x] == '/' || buffer[y, x] == '\\' || buffer[y, x] == '0';
+        score = 0;
+        birdRow = 6;
+        birdCol = 10;
+        velocity = 0;
+        isWingUp = true;
+        pipeX = 72;
+        Main();
     }
-
+}
     static void DrawBirdInBuffer(char[,] buffer, int x, int y)
     {
         string[] sprite = isWingUp ? wingUp : wingDown;
@@ -213,25 +245,3 @@ class Program
         }
     }
 
-    static void GameOver()
-    {
-        ScreenText.DrawGameOverScreen(score);
-
-        if (Console.ReadKey(true).Key == ConsoleKey.Escape) return;
-        else 
-        {
-            ResetGame();
-        }
-    }
-    
-    static void ResetGame()
-    {
-        score = 0;
-        birdRow = 6;
-        birdCol = 10;
-        velocity = 0;
-        isWingUp = true;
-        pipeX = 72;
-        Main();
-    }
-}
