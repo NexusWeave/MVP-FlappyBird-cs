@@ -22,7 +22,7 @@ public class Sprite
         }
     }
 
-    public static public bool Toggle(Sprite sprite)
+    public static bool Toggle(Sprite sprite)
     {
         // Toggle the elevation state of the sprite
         sprite.isElivated = !sprite.isElivated;
