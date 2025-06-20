@@ -17,19 +17,18 @@ public class ScreenText
     }
 
 
-    static public void DrawGameStartScreen(int x, int y, char obstacleChar)
+    static public char[,] DrawGameStartScreen(char[,] buffer, int y, int x, char obstacleChar)
     {
-        char[,] buffer = new char[x, y];
         Background.MakeBackground();
-        
+
         Console.Clear();
         Console.WriteLine("Welcome to FlappyAPP!");
         Console.WriteLine("Press any key to start...");
-        //Background.SetGameBorders(buffer, y, obstacleChar);
+        buffer = Background.SetGameBorders(buffer, obstacleChar);
 
-        
-        
+        Sprite.Draw(buffer);
         Console.ReadKey(true);
+        return buffer;
     }
 
 }
