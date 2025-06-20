@@ -1,6 +1,8 @@
+using System.Security.Cryptography.X509Certificates;
+
 class Score
 {
-    private int score;
+    public int score;
 
     static public void Increment(Score Score)
     {
@@ -16,7 +18,7 @@ class Score
     {
         Score.score = 0;
     }
-    static void PrintScore(Score score)
+    static public void PrintScore(Score score)
     {
         Console.SetCursorPosition(37, 0);
         Console.WriteLine("Score: " + Score.GetScore(score), Console.ForegroundColor = ConsoleColor.Black);
