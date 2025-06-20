@@ -10,7 +10,7 @@ public class Background
     {
         for (int i = 0; i < buffer.GetLength(1); i++)
         {
-            buffer[y -1, i] = obstacleChar;
+            buffer[y - 1, i] = obstacleChar;
         }
         return buffer;
     }
