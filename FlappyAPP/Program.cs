@@ -28,12 +28,12 @@ class Program
 
     static void Main()
     {
-        GameLogic.Start(row, column, '█');
+        GameLogic.Start();
         
 
         pipeX = column - 1;
 
-        DrawGameArea(row, column, '█');
+        //DrawGameArea(row, column, '█');
     }
 
     static void DrawGameArea(int bufferHeight, int bufferWidth, char obstacleChar)
@@ -57,15 +57,15 @@ class Program
             //GameLogic.CollisionCheck(birdCol + 1, birdCol + 1, pipeX + 2);
             Score.Increment(birdCol + 1, pipeX +3, score, pipeGapTop, pipeGapBottom);
 
-            buffer = ResetScreen(bufferHeight, bufferWidth, buffer, ' ');
-            buffer = Background.SetGameBorders(buffer, bufferHeight, obstacleChar);
+            buffer = ResetScreen(buffer, ' ');
+            buffer = Background.SetGameBorders(buffer, obstacleChar);
 
             Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
             DrawBirdInBuffer(buffer, birdCol, birdRow);
 
             Score.PrintScore(score);
 
-            Sprite.Draw(bufferHeight, bufferWidth, buffer, sprite);
+            //Sprite.Draw(bufferHeight, bufferWidth, buffer, sprite);
             Thread.Sleep(100);
         }
     }
@@ -94,10 +94,12 @@ class Program
         return buffer;
     }
 
-
     //  Screen Reset Logic
-    static char[,] ResetScreen(int bufferHeight, int bufferWidth, char[,] buffer, char space)
+    static char[,] ResetScreen(char[,] buffer, char space)
     {
+        int bufferHeight = buffer.GetLength(0);
+        int bufferWidth = buffer.GetLength(1);
+        
         for (int y = 0; y < bufferHeight; y++)
         {
             for (int x = 0; x < bufferWidth; x++)
@@ -107,7 +109,6 @@ class Program
         }
         return buffer;
     }
-
 
     // Sprite Drawing Logic
     static void DrawSprite(int bufferHeight, int bufferWidth, char[,] buffer)
