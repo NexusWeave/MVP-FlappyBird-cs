@@ -27,7 +27,7 @@ class Program
     static int pipeGapBottom = 14;
 
     static void Main()
-    {   Background.MakeBackground();
+    { Background.MakeBackground();
         Console.Clear();
         DrawGameStartScreen();
         Console.ReadKey(true);
@@ -39,6 +39,8 @@ class Program
 
     static void DrawGameArea(int bufferHeight, int bufferWidth, char obstacleChar)
     {
+        Sprite sprite = new Sprite();
+        Score score = new Score();
         char[,] buffer = new char[bufferHeight, bufferWidth];
 
         while (true)
@@ -46,26 +48,25 @@ class Program
             //  ConsoleUtils
             ConsoleUtilsAvailable();
 
-            ResetVelocity();
-
             //  Obstacle movement Logic
             HorizontalMovement(bufferWidth);
 
             //  Bird movement Logic
-            VerticalMovement();
+            Sprite.ResetVelocity(sprite);
+            Sprite.VerticalMovement(sprite);
 
-            CollisionCheck(birdCol + 1, birdCol + 1);
-            ScoreIncrement(birdCol + 1);
+            //GameLogic.CollisionCheck(birdCol + 1, birdCol + 1, pipeX + 2);
+            Score.Increment(birdCol + 1, pipeX +3, score, pipeGapTop, pipeGapBottom);
 
             buffer = ResetScreen(bufferHeight, bufferWidth, buffer, ' ');
-            buffer = SetGameBorders(buffer, bufferHeight, obstacleChar);
-            
+            buffer = Background.SetGameBorders(buffer, bufferHeight, obstacleChar);
+
             Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
             DrawBirdInBuffer(buffer, birdCol, birdRow);
 
-            PrintScore();
+            Score.PrintScore(score);
 
-            DrawSprite(bufferHeight, bufferWidth, buffer);
+            Sprite.Draw(bufferHeight, bufferWidth, buffer, sprite);
             Thread.Sleep(100);
         }
     }
@@ -79,20 +80,21 @@ class Program
     }
 
     //  Sprite Movement Logic
-    static void VerticalMovement()
+               static void VerticalMovement()
     {
         birdRow += velocity;
     }
+
     // Background
     static char[,] SetGameBorders(char[,] buffer, int y, char obstacleChar)
     {
-        const int MIN_VALUE = 1;
         for (int i = 0; i < buffer.GetLength(1); i++)
         {
-            buffer[y - MIN_VALUE, i] = obstacleChar;
+            buffer[y - 1, i] = obstacleChar;
         }
         return buffer;
     }
+
 
     //  Screen Reset Logic
     static char[,] ResetScreen(int bufferHeight, int bufferWidth, char[,] buffer, char space)
@@ -137,7 +139,6 @@ class Program
     {
         return buffer[y, x] == '/' || buffer[y, x] == '\\' || buffer[y, x] == '0';
     }
-
 
     //  Score Logic
     static void PrintScore()
@@ -200,7 +201,7 @@ class Program
             ResetGame();
         }
     }
-    
+
     //  Game Logic
     static void CollisionCheck(int hitboxStart, int hitboxEnd)
     {
@@ -225,7 +226,7 @@ class Program
         pipeX = 72;
         Main();
     }
-}
+
     static void DrawBirdInBuffer(char[,] buffer, int x, int y)
     {
         string[] sprite = isWingUp ? wingUp : wingDown;
@@ -244,4 +245,4 @@ class Program
             }
         }
     }
-
+}
