@@ -5,8 +5,8 @@ public class Sprite
     public int[] pos = new int[2];
     public int velocity;
     public bool isElivated;
-
-    static void Draw(int y, int x, char[,] buffer, Sprite sprite)
+    
+    public static void Draw(int y, int x, char[,] buffer, Sprite sprite)
     {
 
         for (int i = 0; i < sprite.pos[1]; i++)
@@ -22,7 +22,7 @@ public class Sprite
         }
     }
 
-    static public bool Toggle(Sprite sprite)
+    public static public bool Toggle(Sprite sprite)
     {
         // Toggle the elevation state of the sprite
         sprite.isElivated = !sprite.isElivated;
@@ -30,13 +30,13 @@ public class Sprite
         return sprite.isElivated;
     }
 
-    static void VerticalMovement(Sprite sprite)
+    public static void VerticalMovement(Sprite sprite)
     {
         sprite.pos[1] += sprite.velocity;
     }
 
     // Helper method?
-    static bool IsBirdPixel(char[,] buffer, Sprite sprite)
+    public static bool IsBirdPixel(char[,] buffer, Sprite sprite)
     {
         int x = sprite.pos[0];
         int y = sprite.pos[1];
@@ -44,7 +44,7 @@ public class Sprite
         return buffer[y, x] == '/' || buffer[y, x] == '\\' || buffer[y, x] == '0';
     }
 
-    static void ResetVelocity(Sprite sprite)
+    public static void ResetVelocity(Sprite sprite)
         {
             sprite.velocity++;
             if (sprite.velocity > 1) sprite.velocity = 1;
