@@ -2,7 +2,7 @@ namespace FlappyAPP;
 
 public class ScreenText
 {
-   public static void DrawGameOverScreen(int score)
+    public static void DrawGameOverScreen(int score)
     {
         Console.Clear();
         Console.SetCursorPosition(16, 8);
@@ -15,4 +15,17 @@ public class ScreenText
         Console.WriteLine("Press Escape key to exit");
         Console.WriteLine("Press any other Key to restart Game");
     }
+
+
+    static void DrawGameStartScreen()
+    {
+        Console.Clear();
+        Console.WriteLine("Welcome to FlappyAPP!");
+        Console.WriteLine("Press any key to start...");
+        Console.ReadKey(true);
+
+        // Cursor position for the Sprite
+
+    }
+
 }
