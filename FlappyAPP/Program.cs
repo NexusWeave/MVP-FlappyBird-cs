@@ -47,32 +47,20 @@ class Program
             ConsoleUtilsAvailable();
 
             ResetVelocity();
-            
-            pipeX--;
 
-            if (pipeX < -3)
-                pipeX = bufferWidth;
+            //  Obstacle movement Logic
+            HorizontalMovement(bufferWidth);
 
-            birdRow += velocity;
+            //  Bird movement Logic
+            VerticalMovement();
 
-            if (birdRow < 1) birdRow = 1;
 
-            if (birdRow > row - 4) birdRow = row - 4;
-
-            if (velocity > 0) isWingUp = false;
 
             CollisionCheck(birdCol + 1, birdCol + 1);
             ScoreIncrement(birdCol + 1);
 
-            for (int y = 0; y < bufferHeight; y++)
-                for (int x = 0; x < bufferWidth; x++)
-                    buffer[y, x] = ' ';
-            
-            for (int x = 0; x < bufferWidth; x++)
-            {
-                buffer[0, x] = obstacleChar;
-                buffer[bufferHeight - 1, x] = obstacleChar;
-            }
+            buffer = ResetScreen(bufferHeight, bufferWidth, buffer, ' ');
+            buffer = SetGameBorders(buffer, bufferHeight, obstacleChar);
             
             Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
             DrawBirdInBuffer(buffer, birdCol, birdRow);
@@ -82,6 +70,37 @@ class Program
             DrawSprite(bufferHeight, bufferWidth, buffer);
             Thread.Sleep(100);
         }
+    }
+    static void HorizontalMovement(int x)
+    {
+        pipeX--;
+            if (pipeX < -3)
+                pipeX = x;
+    }
+    static void VerticalMovement()
+    {
+        birdRow += velocity;
+    }
+    static char[,] SetGameBorders(char[,] buffer, int y, char obstacleChar)
+    {
+        const int MIN_VALUE = 1;
+        for (int i = 0; i < buffer.GetLength(1); i++)
+        {
+            buffer[y - MIN_VALUE, i] = obstacleChar;
+        }
+        return buffer;
+    }
+
+    static char[,] ResetScreen(int bufferHeight, int bufferWidth, char[,] buffer, char space)
+    {
+        for (int y = 0; y < bufferHeight; y++)
+        {
+            for (int x = 0; x < bufferWidth; x++)
+            {
+                buffer[y, x] = space;
+            }
+        }
+        return buffer;
     }
     static void DrawSprite(int bufferHeight, int bufferWidth, char[,] buffer)
     {
@@ -140,6 +159,7 @@ class Program
         }
     }
 
+
     static void DrawGameStartScreen()
     {
         Console.Clear();
@@ -154,6 +174,9 @@ class Program
 
     static void CollisionCheck(int hitboxStart, int hitboxEnd)
     {
+
+        if (birdRow > row - 4) birdRow = row - 4;
+            if (velocity > 0) isWingUp = false;
 
         if (pipeX <= hitboxEnd && pipeX + 2 >= hitboxStart &&
             (birdRow <= pipeGapTop || birdRow + 2 >= pipeGapBottom))
