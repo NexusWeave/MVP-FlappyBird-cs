@@ -13,7 +13,9 @@ public class Background
 
         for (int i = 0; i < x; i++)
         {
+
             buffer[y - 1, i] = obstacleChar;
+            
         }
         return buffer;
     }
