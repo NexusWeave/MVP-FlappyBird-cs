@@ -5,11 +5,9 @@ public class GameLogic
     static string[] wingUp = {
         "  \\   /  ",
         "   \\0/   ",
-        "         "
     };
 
     static string[] wingDown = {
-        "         ",
         "   /0\\   ",
         "  /   \\  "
     };
