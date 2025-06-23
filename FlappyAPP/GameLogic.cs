@@ -38,7 +38,7 @@ public class GameLogic
     static public void UpdateFrame(char[,] buffer, char obstacleChar)
     {
         Score score = new Score();
-        
+
         while (true)
         {
             //  ConsoleUtils
@@ -69,7 +69,6 @@ public class GameLogic
 
     static public void CollisionCheck(int hitboxStart, int hitboxEnd, int ObstacleX)
     {
-
         if (birdRow > row - 4) birdRow = row - 4;
         if (velocity > 0) isWingUp = false;
 
@@ -111,7 +110,6 @@ public class GameLogic
         }
     }
 
-
     static void GameOver()
     {
         GameInterface.DrawGameOverScreen(score);
@@ -122,8 +120,9 @@ public class GameLogic
             ResetGame();
         }
     }
+
     //  Console Utils
-    static void ConsoleUtilsAvailable() 
+    static void ConsoleUtilsAvailable()
     {
         if (Console.KeyAvailable)
         {
