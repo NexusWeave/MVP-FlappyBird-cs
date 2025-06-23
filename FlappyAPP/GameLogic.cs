@@ -26,12 +26,11 @@ public class GameLogic
     static int pipeGapBottom = 14;
 
     //Sprite sprite = new Sprite();
-    Background background = new Background();
 
     static public void Start()
     {
         char[,] buffer = new char[row, column];
-        buffer = ScreenText.DrawGameStartScreen(buffer, row, column, '█');
+        GameInterface.DrawGameStartScreen(buffer, '█');
 
         UpdateFrame(buffer, '█');
     }
@@ -39,7 +38,7 @@ public class GameLogic
     static public void UpdateFrame(char[,] buffer, char obstacleChar)
     {
         Score score = new Score();
-
+        
         while (true)
         {
             //  ConsoleUtils
@@ -53,7 +52,7 @@ public class GameLogic
 
             Score.Increment(birdCol + 1, pipeX + 3, score, pipeGapTop, pipeGapBottom);
 
-            buffer = ResetScreen(buffer, ' ');
+            buffer = GameInterface.ResetScreen(buffer, ' ', obstacleChar);
 
             //  Obstacle Draw / movement Logic
             HorizontalMovement(buffer.GetLength(1));
@@ -61,9 +60,9 @@ public class GameLogic
             DrawBirdInBuffer(buffer, birdCol, birdRow);
 
             // Score Logic
-            Score.PrintScore(score);
+            Score.PrintScore(score, buffer.GetLength(1) / 2);
 
-            Sprite.Draw(buffer);
+            Utils.DrawFrame(buffer);
             Thread.Sleep(100);
         }
     }
@@ -82,7 +81,7 @@ public class GameLogic
     }
 
     // Helper method: Reset Game
-    static void ResetGame()
+    static public void ResetGame()
     {
         score = 0;
         birdRow = 6;
@@ -112,24 +111,10 @@ public class GameLogic
         }
     }
 
-    //  Screen Reset Logic
-    static char[,] ResetScreen(char[,] buffer, char space)
-    {
-        int bufferWidth = buffer.GetLength(1);
-        int bufferHeight = buffer.GetLength(0);
-        for (int y = 0; y < bufferHeight; y++)
-        {
-            for (int x = 0; x < bufferWidth; x++)
-            {
-                buffer[y, x] = space;
-            }
-        }
-        return buffer;
-    }
 
     static void GameOver()
     {
-        ScreenText.DrawGameOverScreen(score);
+        GameInterface.DrawGameOverScreen(score);
 
         if (Console.ReadKey(true).Key == ConsoleKey.Escape) return;
         else
