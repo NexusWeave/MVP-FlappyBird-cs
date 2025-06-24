@@ -48,7 +48,7 @@ class Score
         }
     }
 
-    static public int GetScore(Score Score)
+    static private int GetScore(Score Score)
     {
         return Score.score;
     }
