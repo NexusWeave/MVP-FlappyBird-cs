@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace FlappyAPP;
 
-public class Sprite
+public class Bird
 {
     public int[] pos = new int[2];
     public int velocity;
@@ -67,7 +67,7 @@ public class Sprite
             END OF COMMENT BLOCK
             */
 
-    public static bool Toggle(Sprite sprite)
+    public static bool Toggle(Bird sprite)
     {
         // Toggle the elevation state of the sprite
         sprite.isElivated = !sprite.isElivated;
