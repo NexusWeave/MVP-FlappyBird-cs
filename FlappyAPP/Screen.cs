@@ -26,7 +26,7 @@ public class Screen // Fame
 
         buffer = Ground.SetGround(buffer, obstacleChar);
 
-        Utils.DrawFrame(buffer);
+        Sprite.DrawFrame(buffer);
         Console.ReadKey(true);
 
         return buffer;

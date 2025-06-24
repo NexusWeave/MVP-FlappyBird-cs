@@ -60,7 +60,7 @@ public class GameLogic
             // Score Logic
             Score.PrintScore(score, buffer.GetLength(1) / 2);
 
-            Utils.DrawFrame(buffer);
+            Sprite.DrawFrame(buffer);
             Thread.Sleep(100);
         }
     }
