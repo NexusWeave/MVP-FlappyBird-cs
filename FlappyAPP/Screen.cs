@@ -1,8 +1,8 @@
 namespace FlappyAPP;
 
-public class GameInterface // Fame
+public class Screen // Fame
 {
-    public static void DrawGameOverScreen(int score)
+    public static void GameOverScreen(int score)
     {
         Console.Clear();
         Console.SetCursorPosition(16, 8);
@@ -16,7 +16,7 @@ public class GameInterface // Fame
         Console.WriteLine("Press any other Key to restart Game");
     }
 
-    static public char[,] DrawGameStartScreen(char[,] buffer, char obstacleChar)
+    static public char[,] StartScreen(char[,] buffer, char obstacleChar)
     {
         Background.MakeBackground();
 
@@ -24,7 +24,7 @@ public class GameInterface // Fame
         Console.WriteLine("Welcome to FlappyAPP!");
         Console.WriteLine("Press any key to start...");
 
-        buffer = Background.SetGameBorders(buffer, obstacleChar);
+        buffer = Ground.SetGround(buffer, obstacleChar);
 
         Utils.DrawFrame(buffer);
         Console.ReadKey(true);
@@ -44,7 +44,7 @@ public class GameInterface // Fame
                 buffer[i, j] = space;
             }
         }
-        buffer = Background.SetGameBorders(buffer, obstacleChar);
+        buffer = Ground.SetGround(buffer, obstacleChar);
 
         return buffer;
     }
