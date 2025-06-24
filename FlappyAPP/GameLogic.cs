@@ -43,8 +43,8 @@ public class GameLogic
             ConsoleUtilsAvailable();
 
             //  Bird movement Logic
-            velocity = Sprite.ResetVelocity(velocity);
-            birdRow = Sprite.VerticalMovement(birdRow, velocity);
+            velocity = Bird.ResetVelocity(velocity);
+            birdRow = Bird.VerticalMovement(birdRow, velocity);
 
             CollisionCheck(birdCol + 1, birdCol + 1, pipeX + 2);
 
@@ -60,7 +60,7 @@ public class GameLogic
             // Score Logic
             Score.PrintScore(score, buffer.GetLength(1) / 2);
 
-            Sprite.DrawFrame(buffer);
+            Bird.DrawFrame(buffer);
             Thread.Sleep(100);
         }
     }
