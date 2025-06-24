@@ -26,7 +26,7 @@ public class Screen // Fame
 
         buffer = Ground.SetGround(buffer, obstacleChar);
 
-        Sprite.DrawFrame(buffer);
+        Bird.DrawFrame(buffer);
         Console.ReadKey(true);
 
         return buffer;
