@@ -1,6 +1,6 @@
 namespace FlappyAPP;
 
-public class Screen // Fame
+public class Screen
 {
     public static void GameOverScreen(int score)
     {
