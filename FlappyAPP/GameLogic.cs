@@ -28,7 +28,7 @@ public class GameLogic
     static public void Start()
     {
         char[,] buffer = new char[row, column];
-        GameInterface.DrawGameStartScreen(buffer, '█');
+        Screen.StartScreen(buffer, '█');
 
         UpdateFrame(buffer, '█');
     }
@@ -50,7 +50,7 @@ public class GameLogic
 
             Score.Increment(birdCol + 1, pipeX + 3, score, pipeGapTop, pipeGapBottom);
 
-            buffer = GameInterface.ResetScreen(buffer, ' ', obstacleChar);
+            buffer = Screen.ResetScreen(buffer, ' ', obstacleChar);
 
             //  Obstacle Draw / movement Logic
             HorizontalMovement(buffer.GetLength(1));
@@ -110,7 +110,7 @@ public class GameLogic
 
     static void GameOver()
     {
-        GameInterface.DrawGameOverScreen(score);
+        Screen.GameOverScreen(score);
 
         if (Console.ReadKey(true).Key == ConsoleKey.Escape) return;
         else
