@@ -21,8 +21,6 @@ public class Ground
             Console.Write(Obstacle);
         }
 
-        
-
     }
 
         public static void GroundAnimation( ref int offset, ref int gapX) 
