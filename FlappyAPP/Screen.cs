@@ -16,23 +16,32 @@ public class Screen
         Console.WriteLine("Press any other Key to restart Game");
     }
 
-    static public char[,] StartScreen(char[,] buffer, char obstacleChar)
+    static public void StartScreen(char[,] buffer, char obstacleChar, int offset, int intervalX)
     {
-        Background.MakeBackground();
 
-        Console.Clear();
-        Console.WriteLine("Welcome to FlappyAPP!");
-        Console.WriteLine("Press any key to start...");
+        while (!Console.KeyAvailable)
+        {
+            Console.Clear();
+            ConsoleSettings.ConsoleConfig();
+            Console.WriteLine("Welcome to FlappyAPP!");
+            Console.WriteLine("Press any key to start...");
+            // Wait for user to press a key
+            Background.MakeBackground(buffer, obstacleChar, ref offset, ref intervalX);
+            Thread.Sleep(50);
+            
+        }
+        
 
-        buffer = Ground.SetGround(buffer, obstacleChar);
+        Bird.DrawFrame(ref buffer);
+        
 
-        Bird.DrawFrame(buffer);
-        Console.ReadKey(true);
+        //Bird.DrawFrame(ref buffer);
+        //Console.ReadKey(true);
 
-        return buffer;
+        //return buffer;
     }
 
-    static public char[,] ResetScreen(char[,] buffer, char space, char obstacleChar)
+    static public char[,] ResetScreen(char[,] buffer, char space, char obstacleChar, int offset, int intervalX)
     {
         int x = buffer.GetLength(1);
         int y = buffer.GetLength(0);
@@ -44,7 +53,7 @@ public class Screen
                 buffer[i, j] = space;
             }
         }
-        buffer = Ground.SetGround(buffer, obstacleChar);
+        Ground.DrawGround(ref buffer, obstacleChar, offset, intervalX);
 
         return buffer;
     }
