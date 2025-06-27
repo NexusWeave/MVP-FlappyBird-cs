@@ -1,14 +1,30 @@
-public class Ground
+using FlappyAPP;
+
+public class Ground : Obstacle
 {
-    public static char[,] SetGround(char[,] buffer, char groundChar)
+        public static void DrawGround(ref char[,] buffer, char Obstacle, int offset, int gapX)
     {
         int x = buffer.GetLength(1);
         int y = buffer.GetLength(0);
+        int n =  x - 1;
+    
+        ConsoleColor color = offset < gapX ? ConsoleColor.Green : ConsoleColor.Yellow;
 
-        for (int i = 0; i < x; i++)
+        for (int i = n; i >= 0; i--)
         {
-            buffer[y - 2, i] = groundChar;
+            Console.ForegroundColor = color;
+            if (i % gapX == 0)
+            {
+                color = color == ConsoleColor.Yellow ? ConsoleColor.Green : ConsoleColor.Yellow;
+                
+            }
+            Console.Write(Obstacle);
         }
-        return buffer;
+
     }
+
+        public static void GroundAnimation( ref int offset, ref int gapX) 
+        {
+              offset = (offset + gapX * 2 - 1) % (gapX * 2);
+        }
 }
