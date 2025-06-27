@@ -87,7 +87,7 @@ public class Bird
         return velocity;
     }
 
-    public static void DrawFrame(char[,] buffer)
+    public static void DrawFrame(ref char[,] buffer)
     {
         int x = buffer.GetLength(1);
         int y = buffer.GetLength(0);
