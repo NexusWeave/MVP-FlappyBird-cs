@@ -47,7 +47,6 @@ class Score
             }
         }
     }
-
     static private int GetScore(Score Score)
     {
         return Score.score;
