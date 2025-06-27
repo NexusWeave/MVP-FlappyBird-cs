@@ -27,14 +27,18 @@ public class GameLogic
 
     static public void Start()
     {
+        int offset = 1;
+        int gapX = 2;
         char[,] buffer = new char[row, column];
-        Screen.StartScreen(buffer, '█');
+        Screen.StartScreen(buffer, '█', offset, gapX);
 
-        UpdateFrame(buffer, '█');
+        //UpdateFrame(buffer, '█');
     }
 
     static public void UpdateFrame(char[,] buffer, char obstacleChar)
     {
+        int offset = 1;
+        int intervalX = 5;
         Score score = new Score();
 
         while (true)
@@ -50,7 +54,7 @@ public class GameLogic
 
             Score.Increment(birdCol + 1, pipeX + 3, score, pipeGapTop, pipeGapBottom);
 
-            buffer = Screen.ResetScreen(buffer, ' ', obstacleChar);
+            buffer = Screen.ResetScreen(buffer, ' ', obstacleChar, offset, intervalX);
 
             //  Obstacle Draw / movement Logic
             HorizontalMovement(buffer.GetLength(1));
@@ -60,7 +64,7 @@ public class GameLogic
             // Score Logic
             Score.PrintScore(score, buffer.GetLength(1) / 2);
 
-            Bird.DrawFrame(buffer);
+            Bird.DrawFrame(ref buffer);
             Thread.Sleep(100);
         }
     }
