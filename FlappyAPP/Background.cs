@@ -8,6 +8,7 @@ public class Background
 
         Ground.GroundAnimation(ref offset, ref intervalX);
         Ground.DrawGround(ref buffer, obstacle, offset, intervalX);
+        //Bird.DrawFrame(ref buffer);
     }
 
 }
