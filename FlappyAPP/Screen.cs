@@ -26,7 +26,7 @@ public class Screen
             Console.WriteLine("Welcome to FlappyAPP!");
             Console.WriteLine("Press any key to start...");
             // Wait for user to press a key
-            Background.MakeBackground(buffer, obstacleChar, ref offset, ref intervalX);
+            Background.GenerateBackground(buffer, obstacleChar, ref offset, ref intervalX);
             Thread.Sleep(50);
             
         }
