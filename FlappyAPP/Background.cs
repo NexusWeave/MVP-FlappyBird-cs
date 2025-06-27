@@ -2,9 +2,13 @@ namespace FlappyAPP;
 
 public class Background
 {
-    public static void MakeBackground()
+    public static void MakeBackground(char[,] buffer, char obstacle, ref int offset, ref int intervalX)
     {
-        ConsoleSettings.ConsoleConfig();
+
+
+        Ground.GroundAnimation(ref offset, ref intervalX);
+        Ground.DrawGround(ref buffer, obstacle, offset, intervalX);
     }
+
 }
 
