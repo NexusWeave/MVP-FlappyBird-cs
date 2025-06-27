@@ -87,16 +87,16 @@ public class Bird
         return velocity;
     }
 
-    public static void DrawFrame(ref char[,] buffer)
+    public static void DrawFrame(ref char[,] buffer, ConsoleColor color = ConsoleColor.Green)
     {
         int x = buffer.GetLength(1);
         int y = buffer.GetLength(0);
-
+    
         for (int i = 0; i < y; i++)
         {
             for (int j = 0; j < x; j++)
             {
-                Console.ForegroundColor = IsBirdPixel(j, i, buffer) ? ConsoleColor.Black : ConsoleColor.Green;
+                Console.ForegroundColor = IsBirdPixel(j, i, buffer) ? ConsoleColor.Black : color;
 
                 Console.Write(buffer[i, j]);
             }
