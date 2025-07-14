@@ -30,26 +30,28 @@ namespace FlappyAPP
             return buffer[y, x] == '/' || buffer[y, x] == '\\' || buffer[y, x] == '0';
         }
 
-        public static void LetsFlap(char[,] buffer)
+        public static void LetsFlap(ref char[,] buffer, int bufferX, int bufferY)
         {
-            int posX = 10;
-            int posY = 9;
             isWingDown = !isWingDown;
 
             string[] sprite = isWingDown ? wingDown : wingUp;
 
             for (int y = 0; y < sprite.Length; y++)
             {
+                
                 string line = sprite[y];
                 for (int x = 0; x < line.Length; x++)
                 {
-                    int bufferY = posY + y;
-                    int bufferX = posX + x;
+                    int posY = 9;
+                    posY = posY + y;
 
-                    if (bufferY >= 0 && bufferY < buffer.GetLength(0) &&
-                        bufferX >= 0 && bufferX < buffer.GetLength(1))
+                    int posX = 10;
+                    posX = posX + x;
+
+                    if (posY >= 0 && posY < bufferX &&
+                        posX >= 0 && posX < bufferY)
                     {
-                        buffer[bufferY, bufferX] = line[x];
+                        buffer[posY, posX] = line[x];
                     }
                 }
             }
