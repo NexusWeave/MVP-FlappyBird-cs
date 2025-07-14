@@ -1,6 +1,6 @@
 ﻿namespace FlappyAPP
 {
-    internal class GameLogic
+     static class GameLogic
     {
         private static char[,] InitializeBuffer(int y, int x)
         {
@@ -34,6 +34,7 @@
 
         public static void DrawGameArea(int bufferY, int bufferX, char obstacle,ref int velocity,ref int birdRow,ref bool isWingUp,ref int pipeX,ref int birdCol, ref int pipeGapTop, ref int pipeGapBottom,ref int score, ref int offset, ref int intervalWidth)
         {
+            bool isObstacleBlock = false;
             char[,] buffer = InitializeBuffer(bufferY, bufferX);
 
             while (true)
@@ -48,23 +49,22 @@
                     while (Console.KeyAvailable) Console.ReadKey(true);
                 }
 
-                BirdSpeed(ref velocity,ref birdRow);
+                BirdSpeed(ref velocity, ref birdRow);
 
-                Score.ScoreLogic(ref pipeX, bufferX, birdCol, birdRow, pipeGapTop, pipeGapBottom,ref score);
+                Score.ScoreLogic(ref pipeX, bufferX, birdCol, birdRow, pipeGapTop, pipeGapBottom, ref score);
 
-                if (birdRow >= bufferY -1 ) Program.GameOver();
+                if (birdRow >= bufferY - 1) Program.GameOver();
 
-                Background.SetBuffer( ref buffer,ref offset, ref intervalWidth, obstacle);
+                Background.SetBuffer(ref buffer, ref offset, ref intervalWidth, obstacle);
 
-                Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacle);
+                Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacle, ref isObstacleBlock);
+
                 Sprite.DrawBirdInBuffer(buffer, birdCol, birdRow, velocity);
 
-                Console.SetCursorPosition(37, 0);
-                Console.WriteLine("Score: " + score, Console.ForegroundColor = ConsoleColor.Black);
-                
-                Console.SetCursorPosition(0, 1);
+                Score.DrawScore(score);
+
                 DrawScreenFromBuffer(buffer, bufferY, bufferX);
-                
+
                 Thread.Sleep(50);
             }
         }
