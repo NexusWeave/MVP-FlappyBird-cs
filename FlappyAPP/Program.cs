@@ -25,7 +25,7 @@ class Program
             {
                 startGame = false;
                 pipeX = column - 1;
-                GameLogic.DrawGameArea(ref row, ref column, ref obstacleChar, ref velocity, ref birdRow, ref isWingUp, ref pipeX, ref birdCol, ref pipeGapTop, ref pipeGapBottom, ref score, ref offset, ref intervalWidth);
+                GameLogic.DrawGameArea(row, column, obstacleChar, ref velocity, ref birdRow, ref isWingUp, ref pipeX, ref birdCol, ref pipeGapTop, ref pipeGapBottom, ref score, ref offset, ref intervalWidth);
             }
             else {
                 ConsoleConfig.ConsoleConfigs();
