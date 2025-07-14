@@ -13,23 +13,22 @@ class Program
     static int pipeX = 72;
     static int pipeGapTop = 4;
     static int pipeGapBottom = 14;                         
-    static char obstacleChar = '█';
+    static char obstacle = '█';
     static void Main()
     {
         bool startGame = true;
 
         while (startGame)
         {
-;
             if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Spacebar)
             {
                 startGame = false;
                 pipeX = column - 1;
-                GameLogic.DrawGameArea(row, column, obstacleChar, ref velocity, ref birdRow, ref isWingUp, ref pipeX, ref birdCol, ref pipeGapTop, ref pipeGapBottom, ref score, ref offset, ref intervalWidth);
+                GameLogic.DrawGameArea(row, column, obstacle, ref velocity, ref birdRow, ref isWingUp, ref pipeX, ref birdCol, ref pipeGapTop, ref pipeGapBottom, ref score, ref offset, ref intervalWidth);
             }
             else {
                 ConsoleConfig.ConsoleConfigs();
-                GameLogic.DrawStartScreen(ref row, ref column);  
+                GameLogic.DrawStartScreen(row, column, obstacle, offset, intervalWidth);
                }
         }
 
