@@ -13,7 +13,7 @@ namespace FlappyAPP
         {
             return new char[y, x];
         }
-        public static void DrawStartScreen(ref int bufferY, ref int bufferX)
+        public static void DrawStartScreen(int bufferY, int bufferX, char obstacle, int offset, int intervalWidth)
         {
             char[,] buffer = InitializeBuffer(bufferY, bufferX);
 
@@ -25,9 +25,10 @@ namespace FlappyAPP
                     for (int x = 0; x < bufferX; x++)
                         buffer[y, x] = ' ';
 
+                Background.SetBuffer(ref buffer, ref offset, ref intervalWidth, obstacle);
                 ScreenText.MainScreenText(buffer);
 
-                Sprite.LetsFlap(buffer);
+                Sprite.LetsFlap(ref buffer, bufferX, bufferY);
 
                 Console.SetCursorPosition(0, 0);
                 DrawScreenFromBuffer(buffer, bufferY, bufferX);
@@ -39,7 +40,7 @@ namespace FlappyAPP
         }
 
 
-        public static void DrawGameArea(int bufferY, int bufferX, char obstacleChar,ref int velocity,ref int birdRow,ref bool isWingUp,ref int pipeX,ref int birdCol, ref int pipeGapTop, ref int pipeGapBottom,ref int score, ref int offset, ref int intervalWidth)
+        public static void DrawGameArea(int bufferY, int bufferX, char obstacle,ref int velocity,ref int birdRow,ref bool isWingUp,ref int pipeX,ref int birdCol, ref int pipeGapTop, ref int pipeGapBottom,ref int score, ref int offset, ref int intervalWidth)
         {
             char[,] buffer = InitializeBuffer(bufferY, bufferX);
 
@@ -57,13 +58,13 @@ namespace FlappyAPP
 
                 BirdSpeed(ref velocity,ref birdRow);
 
-                Score.ScoreLogic(ref pipeX,ref bufferX,ref birdCol,ref birdRow,ref pipeGapTop,ref pipeGapBottom,ref score);
+                Score.ScoreLogic(ref pipeX, bufferX, birdCol, birdRow, pipeGapTop, pipeGapBottom,ref score);
 
                 if (birdRow >= bufferY -1 ) Program.GameOver();
 
-                Background.SetBuffer( ref buffer,ref offset, ref intervalWidth);
+                Background.SetBuffer( ref buffer,ref offset, ref intervalWidth, obstacle);
 
-                Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
+                Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacle);
                 Sprite.DrawBirdInBuffer(buffer, birdCol, birdRow, velocity);
 
                 Console.SetCursorPosition(37, 0);
