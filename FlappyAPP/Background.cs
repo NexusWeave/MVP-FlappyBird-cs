@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace FlappyAPP
 {
-    internal class Background
+    public class Background
     {
-       public static void SetBuffer(ref int bufferHeight, ref int bufferWidth, ref char[,] buffer, ref char obstacleChar, ref int offset, ref int intervalWidth)
+       public static void SetBuffer(ref char[,] buffer, ref int offset, ref int intervalWidth)
         {
-            for (int y = 0; y < bufferHeight; y++)
-                for (int x = 0; x < bufferWidth; x++)
-                    buffer[y, x] = ' ';
-            Obstacle.DrawGround(ref bufferWidth, ref bufferHeight, ref buffer, ref offset, ref intervalWidth );
+            int bufferY = buffer.GetLength(0);
+            int bufferX = buffer.GetLength(1);
+
+            for (int i = 0; i < bufferY; i++)
+                for (int j = 0; j < bufferX; j++)
+                    buffer[i, j] = ' ';
+
+            Obstacle.DrawGround(ref buffer, ref offset, ref intervalWidth );
             Obstacle.MakeGroundAnimation(ref offset, ref intervalWidth);
         }
     }
