@@ -1,111 +1,78 @@
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace FlappyAPP;
-
-public class Bird
+namespace FlappyAPP
 {
-    public int[] pos = new int[2];
-    public int velocity;
-    public bool isElivated;
-    /*
-    public bool IsElivated
+    internal class Sprite
     {
-        get
-        {
-            return isElivated;
-        }
-        set
-        {
-            isElivated = !value;
-        }
-    }
-    public int Velocity
-    {
-        get
-        {
-            return Velocity;
-        }
-        set
-        {
-            Velocity = value > 1 ? 1 : value++;
+        public static string[] wingUp = {
+        "  \\   /  ",
+        "   \\0/   ",
+        
+    };
 
+       public static string[] wingDown = {
+              
+        "   /0\\   ",
+        "  /   \\  "
+    };
+       static bool isWingDown = true;
+        public static string[] WingPosition(bool isWingUp)
+        {
+            return isWingUp ? wingUp : wingDown;
         }
-    }
-            public Sprite(int x, int y)
-            {
-                pos[0] = x; // x position
-                pos[1] = y; // y position
-                velocity = 1; // default velocity
-                isElivated = false; // default elevation state
-            }
-            void Draw(char[,] buffer)
-            {
-                int x = pos[0];
-                int y = pos[1];
+        public static bool IsBirdPixel(char[,] buffer, int y, int x)
+        {
+            return buffer[y, x] == '/' || buffer[y, x] == '\\' || buffer[y, x] == '0';
+        }
 
-                for (int i = 0; i < y; i++)
+        public static void LetsFlap(char[,] buffer)
+        {
+            int posX = 10;
+            int posY = 9;
+            isWingDown = !isWingDown;
+
+            string[] sprite = isWingDown ? wingDown : wingUp;
+
+            for (int y = 0; y < sprite.Length; y++)
+            {
+                string line = sprite[y];
+                for (int x = 0; x < line.Length; x++)
                 {
-                    for (int j = 0; j < x; j++)
+                    int bufferY = posY + y;
+                    int bufferX = posX + x;
+
+                    if (bufferY >= 0 && bufferY < buffer.GetLength(0) &&
+                        bufferX >= 0 && bufferX < buffer.GetLength(1))
                     {
-                        Console.ForegroundColor = IsBirdPixel(buffer) ? ConsoleColor.Black : ConsoleColor.Green;
-
-                        Console.Write(buffer[i, j]);
+                        buffer[bufferY, bufferX] = line[x];
                     }
-                    Console.WriteLine();
-
                 }
             }
-
-            private bool IsBirdPixel(char[,] buffer)
-            {
-                int x = pos[0];
-                int y = pos[1];
-
-                return buffer[y, x] == '/' || buffer[y, x] == '\\' || buffer[y, x] == '0';
-            }
-
-            END OF COMMENT BLOCK
-            */
-
-    public static bool Toggle(Bird sprite)
-    {
-        // Toggle the elevation state of the sprite
-        sprite.isElivated = !sprite.isElivated;
-
-        return sprite.isElivated;
-    }
-
-    public static int VerticalMovement(int birdrow, int velocity)
-    {
-        return birdrow += velocity;
-    }
-
-    public static int ResetVelocity(int velocity)
-    {
-        velocity += 1;
-        if (velocity > 1) velocity = 1;
-        return velocity;
-    }
-
-    public static void DrawFrame(ref char[,] buffer, ConsoleColor color = ConsoleColor.Green)
-    {
-        int x = buffer.GetLength(1);
-        int y = buffer.GetLength(0);
-    
-        for (int i = 0; i < y; i++)
-        {
-            for (int j = 0; j < x; j++)
-            {
-                Console.ForegroundColor = IsBirdPixel(j, i, buffer) ? ConsoleColor.Black : color;
-
-                Console.Write(buffer[i, j]);
-            }
-            Console.WriteLine();
         }
-    }
 
-    private static bool IsBirdPixel(int x, int y, char[,] buffer)
-    {
-        return buffer[y, x] == '/' || buffer[y, x] == '\\' || buffer[y, x] == '0';
+        public static void DrawBirdInBuffer(char[,] buffer, int x, int y, int velocity)
+        {
+            if (velocity < 0)isWingDown = !isWingDown;
+            else isWingDown = true;
+            string[] sprite = WingPosition(isWingDown);
+
+            for (int i = 0; i < sprite.Length; i++)
+            {
+                int drawY = y + i;
+                if (drawY >= 0 && drawY < buffer.GetLength(0))
+                {
+                    for (int j = 0; j < sprite[i].Length; j++)
+                    {
+                        int drawX = x + j;
+                        if (drawX >= 0 && drawX < buffer.GetLength(1))
+                            buffer[drawY, drawX] = sprite[i][j];
+                    }
+                }
+            }
+        }
     }
 }

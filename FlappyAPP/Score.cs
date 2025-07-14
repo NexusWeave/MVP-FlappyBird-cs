@@ -1,68 +1,29 @@
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-class Score
+namespace FlappyAPP
 {
-    public int score;
-    /*public bool InGap = false;
-    private int score
+    internal class Score
     {
-        get { return score; }
-        set { score = value; }
-    }
-
-    public Score(int x = 0)
-    {
-        score = x;
-    }
-
-    public void Increment()
-    {
-        if (InGap)
+      public static void ScoreLogic(ref int pipeX, ref int bufferWidth, ref int birdCol, ref int birdRow, ref int pipeGapTop, ref int pipeGapBottom, ref int score)
         {
-            score ++;
-        }
-    }
-    private int GetScore()
-    {
-        return score;
-    }
-    public void PrintScore()
-    {
-        Console.SetCursorPosition(37, 0);
-        Console.WriteLine("Score: " + GetScore(), Console.ForegroundColor = ConsoleColor.Black);
-        Console.SetCursorPosition(0, 1);
+            pipeX--;
+            if (pipeX < -3)
+                pipeX = bufferWidth;
 
-    }*/
+            int birdHitboxStart = birdCol + 1;
+            int birdHitboxEnd = birdCol + 1;
+            if ((pipeX <= birdHitboxEnd && pipeX + 1 >= birdHitboxStart) &&
+                (birdRow <= pipeGapTop || birdRow + 1 >= pipeGapBottom))
+                Program.GameOver();
 
-    static public void Increment(int hitboxEnd, int pipeX, Score Score, int pipeGapTop, int pipeGapBottom)
-    {
-        if (hitboxEnd == pipeX + 3)
-        {
-            Score.score += 1;
-            if (pipeGapTop < 6)
+            if (birdHitboxEnd == pipeX + 2)
             {
-                pipeGapTop += 1;
-                pipeGapBottom -= 1;
+                score += 1;
             }
         }
     }
-    static private int GetScore(Score Score)
-    {
-        return Score.score;
-    }
-
-    static public void Reset(Score Score)
-    {
-        Score.score = 0;
-    }
-
-    static public void PrintScore(Score score, int x)
-    {
-        Console.SetCursorPosition(x, 0);
-        Console.WriteLine($"{Score.GetScore(score)}", Console.ForegroundColor = ConsoleColor.Black);
-        Console.SetCursorPosition(0, 1);
-
-    }
-
 }

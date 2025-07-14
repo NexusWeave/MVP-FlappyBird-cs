@@ -1,151 +1,111 @@
-namespace FlappyAPP;
+﻿using System;
+using System.Collections.Generic;
+using System.IO.Pipelines;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class GameLogic
+namespace FlappyAPP
 {
-    static string[] wingUp = {
-        "  \\   /  ",
-        "   \\0/   ",
-    };
-
-    static string[] wingDown = {
-        "   /0\\   ",
-        "  /   \\  "
-    };
-
-    static int row = 20;
-    static int column = 73;
-    static int score = 0;
-    static int birdRow = 6;
-    static int birdCol = 10;
-    static int velocity = 0;
-    static bool isWingUp = true;
-    static int pipeX;
-    static int pipeGapTop = 4;
-    static int pipeGapBottom = 14;
-
-    //Sprite sprite = new Sprite();
-
-    static public void Start()
+    internal class GameLogic
     {
-        int offset = 1;
-        int gapX = 2;
-        char[,] buffer = new char[row, column];
-        Screen.StartScreen(buffer, '█', offset, gapX);
-
-        //UpdateFrame(buffer, '█');
-    }
-
-    static public void UpdateFrame(char[,] buffer, char obstacleChar)
-    {
-        int offset = 1;
-        int intervalX = 5;
-        Score score = new Score();
-
-        while (true)
+        public static void DrawStartScreen(ref int row, ref int column)
         {
-            //  ConsoleUtils
-            ConsoleUtilsAvailable();
+            int bufferHeight = row;
+            int bufferWidth = column;
+            char[,] buffer = new char[bufferHeight, bufferWidth];
 
-            //  Bird movement Logic
-            velocity = Bird.ResetVelocity(velocity);
-            birdRow = Bird.VerticalMovement(birdRow, velocity);
+            ConsoleConfig.ConsoleConfigs();
+            Console.CursorVisible = false;
 
-            CollisionCheck(birdCol + 1, birdCol + 1, pipeX + 2);
-
-            Score.Increment(birdCol + 1, pipeX + 3, score, pipeGapTop, pipeGapBottom);
-
-            buffer = Screen.ResetScreen(buffer, ' ', obstacleChar, offset, intervalX);
-
-            //  Obstacle Draw / movement Logic
-            HorizontalMovement(buffer.GetLength(1));
-            Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
-            DrawBirdInBuffer(buffer, birdCol, birdRow);
-
-            // Score Logic
-            Score.PrintScore(score, buffer.GetLength(1) / 2);
-
-            Bird.DrawFrame(ref buffer);
-            Thread.Sleep(100);
-        }
-    }
-
-    static public void CollisionCheck(int hitboxStart, int hitboxEnd, int ObstacleX)
-    {
-        if (birdRow > row - 4) birdRow = row - 4;
-        if (velocity > 0) isWingUp = false;
-
-        if (ObstacleX <= hitboxEnd && ObstacleX + 2 >= hitboxStart &&
-            (birdRow <= pipeGapTop || birdRow + 2 >= pipeGapBottom))
-            GameOver();
-
-        if (birdRow + 1 >= row - 3) GameOver();
-    }
-
-    // Helper method: Reset Game
-    static public void ResetGame()
-    {
-        score = 0;
-        birdRow = 6;
-        birdCol = 10;
-        velocity = 0;
-        isWingUp = true;
-        pipeX = 72;
-        GameLogic.Start();
-    }
-
-    static void DrawBirdInBuffer(char[,] buffer, int x, int y)
-    {
-        string[] sprite = isWingUp ? wingUp : wingDown;
-
-        for (int i = 0; i < sprite.Length; i++)
-        {
-            int drawY = y + i;
-            if (drawY >= 0 && drawY < buffer.GetLength(0))
+            while (true)
             {
-                for (int j = 0; j < sprite[i].Length; j++)
+                for (int y = 0; y < bufferHeight; y++)
+                    for (int x = 0; x < bufferWidth; x++)
+                        buffer[y, x] = ' ';
+
+                ScreenText.MainScreenText(buffer);
+                Sprite.LetsFlap(buffer);
+
+               
+                Console.SetCursorPosition(0, 0);
+                DrawScreenFromBuffer(ref bufferHeight, ref bufferWidth, ref buffer);
+
+                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Spacebar)
+                    break;
+
+                Thread.Sleep(100);
+            }
+        }
+
+
+        public static void DrawGameArea(ref int row,ref int column,ref char obstacleChar,ref int velocity,ref int birdRow,ref bool isWingUp,ref int pipeX,ref int birdCol, ref int pipeGapTop, ref int pipeGapBottom,ref int score, ref int offset, ref int intervalWidth)
+        {
+            int bufferHeight = row;
+            int bufferWidth = column;
+            char[,] buffer = new char[bufferHeight, bufferWidth];
+
+            while (true)
+            {
+
+                if (Console.KeyAvailable)
                 {
-                    int drawX = x + j;
-                    if (drawX >= 0 && drawX < buffer.GetLength(1))
-                        buffer[drawY, drawX] = sprite[i][j];
+                    if (Console.ReadKey(true).Key == ConsoleKey.Spacebar)
+                    {
+                        velocity = -2;
+
+                        if (isWingUp) isWingUp = false;
+                        else isWingUp = true;
+                    }
+                    while (Console.KeyAvailable) Console.ReadKey(true);
                 }
+
+                BirdSpeed(ref velocity,ref birdRow,ref row,ref isWingUp);
+
+                Score.ScoreLogic(ref pipeX,ref bufferWidth,ref birdCol,ref birdRow,ref pipeGapTop,ref pipeGapBottom,ref score);
+
+
+                if (birdRow >= row -1 ) Program.GameOver();
+
+                Background.SetBuffer(ref bufferHeight, ref bufferWidth, ref buffer, ref obstacleChar, ref offset, ref intervalWidth);
+
+                Obstacle.DrawPipeInBuffer(buffer, pipeX, pipeGapTop, pipeGapBottom, obstacleChar);
+                Sprite.DrawBirdInBuffer(buffer, birdCol, birdRow, velocity);
+
+                Console.SetCursorPosition(37, 0);
+                Console.WriteLine("Score: " + score, Console.ForegroundColor = ConsoleColor.Black);
+                
+                Console.SetCursorPosition(0, 1);
+                DrawScreenFromBuffer(ref bufferHeight,ref bufferWidth,ref buffer);
+                
+                Thread.Sleep(50);
             }
         }
-    }
 
-    static void GameOver()
-    {
-        Screen.GameOverScreen(score);
-
-        if (Console.ReadKey(true).Key == ConsoleKey.Escape) return;
-        else
+        static void DrawScreenFromBuffer(ref int bufferHeight,ref int bufferWidth,ref char[,] buffer) 
         {
-            ResetGame();
-        }
-    }
-
-    //  Console Utils
-    static void ConsoleUtilsAvailable()
-    {
-        if (Console.KeyAvailable)
-        {
-            if (Console.ReadKey(true).Key == ConsoleKey.Spacebar)
+            for (int y = 0; y < bufferHeight; y++)
             {
-                velocity = -2;
+                for (int x = 0; x < bufferWidth; x++)
+                {
+                    if (Sprite.IsBirdPixel(buffer, y, x))
+                        Console.ForegroundColor = ConsoleColor.Black;
+                    else
+                        Console.ForegroundColor = ConsoleColor.Green;
 
-                if (isWingUp) isWingUp = false;
-                else isWingUp = true;
+                    Console.Write(buffer[y, x]);
+                }
+                Console.WriteLine();
             }
-            while (Console.KeyAvailable) Console.ReadKey(true);
         }
+
+        static void BirdSpeed(ref int velocity, ref int birdRow, ref int row,ref  bool isWingUp) 
+        {
+            velocity += 1;
+
+            if (velocity > 3) velocity = 3;
+            birdRow += velocity;
+        }
+
     }
-
-    // Obstacle Movement Logic
-    static void HorizontalMovement(int x)
-    {
-        pipeX--;
-        if (pipeX < -3)
-            pipeX = x;
-    }
-
-
 }
