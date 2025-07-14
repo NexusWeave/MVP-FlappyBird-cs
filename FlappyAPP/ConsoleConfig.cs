@@ -11,6 +11,7 @@ namespace FlappyAPP
         public static void ConsoleConfigs()
         {
             Console.Title = "FlappyAPP";
+            Console.CursorVisible = false;
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.OutputEncoding = System.Text.Encoding.UTF8;
