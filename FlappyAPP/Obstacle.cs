@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace FlappyAPP
 {
     internal class Obstacle
     {
 
-        public static void DrawPipeInBuffer(char[,] buffer, int pipeX, int gapTop, int gapBottom, char obstacleChar)
+        public static void DrawPipeInBuffer(char[,] buffer, int pipeX, int gapTop, int gapBottom, char obstacleChar, ref bool obstacleBlock)
         {
-            SetObstacleHeight(ref gapTop, ref gapBottom, ref pipeX);
-            for (int y = 1; y < buffer.GetLength(0) - 1; y++)
+            SetObstacleHeight(gapTop, ref gapBottom, ref pipeX, ref obstacleBlock);
+
+            int bufferY = buffer.GetLength(0);
+            int bufferX = buffer.GetLength(1);
+
+            for (int y = 0; y < bufferY; y++)
             {
                 if (y < gapTop || y > gapBottom)
                 {
                     for (int x = 0; x < 5; x++)
                     {
                         int px = pipeX + x;
-                        if (px >= 0 && px < buffer.GetLength(1))
+                        if (px >= 0 && px < bufferX)
                             buffer[y, px] = obstacleChar;
                     }
                 }
@@ -44,34 +42,29 @@ namespace FlappyAPP
                 Console.Write(obstacle);
             }
         }
-        public static void MakeGroundAnimation(ref int offset, ref int intervalwidth) 
+
+        public static void MakeGroundAnimation(ref int offset, ref int intervalwidth)
         {
-              offset = (offset + intervalwidth * 2 - 1) % (intervalwidth * 2);
+            offset = (offset + intervalwidth * 2 - 1) % (intervalwidth * 2);
         }
 
-        static void SetObstacleHeight(ref int pipeGapTop, ref int pipeGapBottom, ref int pipeX)
+        static void SetObstacleHeight(int pipeGapTop, ref int pipeGapBottom, ref int pipeX, ref bool obstacleBlock)
         {
-            bool isPipeHeightSet = false;
 
-            var random = new Random();
+            int r = new Random().Next(3, 10);
 
-            int rand = random.Next(3, 10);
 
-            if (pipeX > 71 && !isPipeHeightSet)
+            if (pipeX > 71 && !obstacleBlock)
             {
-                isPipeHeightSet = true;
-                pipeGapTop = rand;
-
-                pipeGapBottom = pipeGapTop + 8;
+                pipeGapBottom = r + 8;
             }
-            else if (pipeX < 1 && isPipeHeightSet)
+            else if (pipeX < 1 && obstacleBlock)
             {
-                isPipeHeightSet = false;
+                // Reset the pipe gap to default values
                 pipeGapTop = 4;
                 pipeGapBottom = 14;
             }
+            obstacleBlock = !obstacleBlock;
         }
-
-
     }
 }
