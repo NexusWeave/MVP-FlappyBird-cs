@@ -27,34 +27,23 @@ namespace FlappyAPP
             }
         }
 
-        public static void DrawGround(ref char[,] buffer, ref int offset, ref int intervalWidth)
+        public static void DrawGround(int bufferY, int bufferX, char obstacle, int offset, int gapX)
         {
-            char obstacleChar = '#';
+            int n = bufferX - 1;
 
-            int x = buffer.GetLength(1);
-            int y = buffer.GetLength(0) - 1;
-    
-            ConsoleColor color2 = ConsoleColor.Green;
-            ConsoleColor color1 = ConsoleColor.DarkGreen;
+            ConsoleColor color = offset < gapX ? ConsoleColor.Green : ConsoleColor.Yellow;
 
-            Console.SetCursorPosition(0, y - 1);
-
-            var color = offset < intervalWidth ? color1 : color2;
-
-            Console.ForegroundColor = color;
-            Console.Write(new string(obstacleChar, offset % intervalWidth));
-
-            var coloumnsLeft = x - Console.CursorLeft - 1;
-
-            while (coloumnsLeft > 0)
+            for (int i = n; i >= 0; i--)
             {
-                color = color == color1 ? color2 : color1;
                 Console.ForegroundColor = color;
-                Console.Write(new string(obstacleChar, Math.Min(intervalWidth, coloumnsLeft)));
-                coloumnsLeft -= intervalWidth;
+                if (i % gapX == 0)
+                {
+                    color = color == ConsoleColor.Yellow ? ConsoleColor.Green : ConsoleColor.Yellow;
+
+                }
+                Console.Write(obstacle);
             }
         }
-
         public static void MakeGroundAnimation(ref int offset, ref int intervalwidth) 
         {
               offset = (offset + intervalwidth * 2 - 1) % (intervalwidth * 2);
@@ -63,12 +52,16 @@ namespace FlappyAPP
         static void SetObstacleHeight(ref int pipeGapTop, ref int pipeGapBottom, ref int pipeX)
         {
             bool isPipeHeightSet = false;
+
             var random = new Random();
+
             int rand = random.Next(3, 10);
+
             if (pipeX > 71 && !isPipeHeightSet)
             {
                 isPipeHeightSet = true;
                 pipeGapTop = rand;
+
                 pipeGapBottom = pipeGapTop + 8;
             }
             else if (pipeX < 1 && isPipeHeightSet)
