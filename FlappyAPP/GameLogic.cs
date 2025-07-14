@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Pipelines;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FlappyAPP
+﻿namespace FlappyAPP
 {
     internal class GameLogic
     {
@@ -38,7 +31,6 @@ namespace FlappyAPP
                 Thread.Sleep(100);
             }
         }
-
 
         public static void DrawGameArea(int bufferY, int bufferX, char obstacle,ref int velocity,ref int birdRow,ref bool isWingUp,ref int pipeX,ref int birdCol, ref int pipeGapTop, ref int pipeGapBottom,ref int score, ref int offset, ref int intervalWidth)
         {
