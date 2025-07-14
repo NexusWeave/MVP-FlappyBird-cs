@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,22 +27,30 @@ namespace FlappyAPP
             }
         }
 
-        public static void DrawGround(ref int bufferWidth, ref int bufferHeight, ref char[,] buffer, ref int offset, ref int intervalWidth)
+        public static void DrawGround(ref char[,] buffer, ref int offset, ref int intervalWidth)
         {
             char obstacleChar = '#';
-           ConsoleColor color1 = ConsoleColor.DarkGreen;
-            ConsoleColor color2 = ConsoleColor.Green;
 
-            Console.SetCursorPosition(0, bufferHeight - 1);
+            int x = buffer.GetLength(1);
+            int y = buffer.GetLength(0) - 1;
+    
+            ConsoleColor color2 = ConsoleColor.Green;
+            ConsoleColor color1 = ConsoleColor.DarkGreen;
+
+            Console.SetCursorPosition(0, y - 1);
+
             var color = offset < intervalWidth ? color1 : color2;
+
             Console.ForegroundColor = color;
             Console.Write(new string(obstacleChar, offset % intervalWidth));
-            var coloumnsLeft = bufferWidth - Console.CursorLeft - 1;
+
+            var coloumnsLeft = x - Console.CursorLeft - 1;
+
             while (coloumnsLeft > 0)
             {
                 color = color == color1 ? color2 : color1;
                 Console.ForegroundColor = color;
-                Console.Write(new string(obstacleChar, Math.Min(intervalWidth, coloumnsLeft )));
+                Console.Write(new string(obstacleChar, Math.Min(intervalWidth, coloumnsLeft)));
                 coloumnsLeft -= intervalWidth;
             }
         }
