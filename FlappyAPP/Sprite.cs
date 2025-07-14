@@ -20,6 +20,7 @@ namespace FlappyAPP
         "  /   \\  "
     };
        static bool isWingDown = true;
+
         public static string[] WingPosition(bool isWingUp)
         {
             return isWingUp ? wingUp : wingDown;
