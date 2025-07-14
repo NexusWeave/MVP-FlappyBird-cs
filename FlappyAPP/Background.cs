@@ -8,7 +8,7 @@ namespace FlappyAPP
 {
     public class Background
     {
-       public static void SetBuffer(ref char[,] buffer, ref int offset, ref int intervalWidth)
+       public static void SetBuffer(ref char[,] buffer, ref int offset, ref int intervalWidth, char obstacle)
         {
             int bufferY = buffer.GetLength(0);
             int bufferX = buffer.GetLength(1);
@@ -17,7 +17,7 @@ namespace FlappyAPP
                 for (int j = 0; j < bufferX; j++)
                     buffer[i, j] = ' ';
 
-            Obstacle.DrawGround(ref buffer, ref offset, ref intervalWidth );
+            Obstacle.DrawGround(bufferY, bufferX, obstacle, offset, intervalWidth );
             Obstacle.MakeGroundAnimation(ref offset, ref intervalWidth);
         }
     }
