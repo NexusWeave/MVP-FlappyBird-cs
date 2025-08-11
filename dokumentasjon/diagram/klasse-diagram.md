@@ -1,7 +1,7 @@
 ## Klasse diagram for OOP
 ```mermaid
     classDiagram
-
+        direction TD
         Interface ..|> Game
 
         class Program {
