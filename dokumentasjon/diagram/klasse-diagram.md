@@ -103,7 +103,15 @@
         direction TD
 
         class GameScreen {
-            + DrawStartScreen()
-            + DrawGameOverScreen()
+            + void DrawStartScreen()
+            + void DrawGameOverScreen()
+
+            %% Suggestions
+            + void DrawGameScore()?
+            + void DrawGameSprite()? 
+            + void DrawGameObstacle()?
+            + void DrawGameBackground()? 
+            
         }
+```
 ```
