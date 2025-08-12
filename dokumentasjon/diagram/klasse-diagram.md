@@ -12,6 +12,7 @@
         }
 
 ```
+
 ##  Game klassen og interface
 ```mermaid
     classDiagram
@@ -94,5 +95,22 @@
 
         class Utils {
             +void setPos(int movement = -1)
+        }
+```
+##  Game Screen
+```mermaid
+    classDiagram
+        direction TD
+
+        class GameScreen {
+            + void DrawStartScreen()
+            + void DrawGameOverScreen()
+
+            %% Suggestions
+            + void DrawGameScore()?
+            + void DrawGameSprite()? 
+            + void DrawGameObstacle()?
+            + void DrawGameBackground()? 
+            
         }
 ```
