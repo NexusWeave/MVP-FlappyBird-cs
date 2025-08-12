@@ -54,7 +54,7 @@ sequenceDiagram
         
             g-->UI: Check for user inputs
             UI-->g: Returns user action
-            g-->g: Updats game logic
+            g-->g: Updates game logic
 
             alt if collision || Esc pressed
                 g --> gs: calls DrawGameOverScreen()
