@@ -1,6 +1,6 @@
 namespace FlappyAPP;
 
-public class GameLogic
+public class Game
 {
     static string[] wingUp = {
         "  \\   /  ",
@@ -90,7 +90,7 @@ public class GameLogic
         velocity = 0;
         isWingUp = true;
         pipeX = 72;
-        GameLogic.Start();
+        Game.Start();
     }
 
     static void DrawBirdInBuffer(char[,] buffer, int x, int y)
