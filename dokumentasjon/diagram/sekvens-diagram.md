@@ -35,43 +35,33 @@ sequenceDiagram
 
         g-->g: GameConfigurations()
     
-        loop while true
+        loop while-loop
 
             g-->b: Draw background
-                b-->b: PrintBackgroundColor()
-                %% Change to Game Screen?
+            g-->gs: PrintBackgroundColor()
 
-            g-->s: Draw Score
-                s-->s: int PrintScore(ref char[] buffer)
-                %% Change to Game Screen?
+            g-->s: Save Score
+            s-->gs: void PrintScore(ref char[] buffer)
     
             g-->o: Draw segments
                 o-->o: char [] CreateObstacle(ref char[] buffer) 
                 %% At the beginning 5 rows and 5 columns
                 %% during the game, use the score to increase difficulty?
                 %% In Animation speed? columns?
-                o-->o: PrintObstacles(char[] buffer)
-                %% Change to Game Screen?
 
-            g-->s: Draw Sprite
-                s-->s: char [] AnimateSprite()
-                s-->s: PrintSprite(char[] buffer)
-                %% Change to Game Screen?
-        
+            g-->gs: PrintObstacles(char[] buffer)
+
+            g-->s: Animate Sprite
+                s-->s: char [] AnimateSprite(ref char[] buffer)
+            g-->gs: PrintSprite(char[] buffer)
+
             g-->UI: Check for user inputs
             UI-->g: Returns user action
             g-->g: Updates game logic
 
             alt if collision || Esc pressed
-                g --> gs: calls DrawGameOverScreen()
-                gs --> u: Display end screen
-
-            else 
-                g-->s: Draw Sprite
-                    s-->s: char [] AnimateSprite()
-                    s-->s: PrintSprite(char[] buffer)
-                    %% Change to Game Screen?
-                    %%g-->gs: Display updated Screen
+                g --> sg: calls DrawGameOverScreen()
+                sg --> u: Display end screen
             end
         end
 
