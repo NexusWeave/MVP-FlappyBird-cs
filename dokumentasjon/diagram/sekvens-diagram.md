@@ -3,6 +3,7 @@ sequenceDiagram
     actor u as Bella
     participant p as Program
     participant gs as GameScreen
+    participant sg as StateScreen
     participant g as Game
     participant b as Background
     participant s as Sprite
@@ -13,14 +14,19 @@ sequenceDiagram
     autonumber
     u ->> p: Opens game
     p ->> p: Defines rows & columns
-    p ->> gs: DrawStartScreen()
+    p ->> sg: resolve(state=Initial)
+    sg ->> p: ScreenType.Start
+    p ->> gs: DrawScreen(ScreenType.Start)
+    gs ->> sg: return StartScreen()
     gs ->> u: Displays start screen
 
     u ->> UI: User presses a button
     UI->> p: Notifies key pressed
         alt button is esc
-            p->gs: calls void DrawGameOverScreen()
-            gs ->u: Displays end Screen
+            p ->> sg: resolve(state=GameOver)
+            sg->> p: ScreenType.GameOver
+            p -> gs: calls void DrawScreen(ScreenType.GameOver)
+            gs -> u: Displays end Screen
         else button is space
             p ->> g: Run()
         end
@@ -69,6 +75,8 @@ sequenceDiagram
             end
         end
 
-        p --> gs: void DrawGameOverScreen()
+        p ->> sg: resolve(state=GameOver)
+        sg->> p: ScreenType.GameOver
+        p --> gs: calls void DrawScreen(ScreenType.GameOver)
         gs --> u: Display end screen
 ```

@@ -106,3 +106,13 @@
             + void DrawGameOverScreen(char[] buffer) 
         }
 ```
+## State Screen
+```mermaid
+    classDiagram
+        direction ID
+
+        class StateScreen {
+            + void StartScreen()
+            + void GameOverScreen(Score score)
+        }
+```
