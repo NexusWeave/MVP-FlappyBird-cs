@@ -89,21 +89,15 @@
         direction TD
 
         class GameScreen {
-            + void DrawGameScore(int score)
-            + void DrawGameSprite(char[] buffer)
-            + void DrawGameObstacle(char[] buffer)
-            + void DrawGameBackground(char[] buffer) 
-        }
-```
+            + void DrawStartScreen()
+            + void DrawGameOverScreen()
 
-##  StateScreen
-```mermaid
-    classDiagram
-        direction TD
-
-        class StateScreen {
-            + void DrawStartScreen(char[] buffer)
-            + void DrawGameOverScreen(char[] buffer) 
+            %% Suggestions
+            + void DrawGameScore()?
+            + void DrawGameSprite()? 
+            + void DrawGameObstacle()?
+            + void DrawGameBackground()? 
+            
         }
 ```
 ## State Screen
