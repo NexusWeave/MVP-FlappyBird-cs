@@ -100,13 +100,26 @@
             
         }
 ```
+
+
 ## State Screen
 ```mermaid
     classDiagram
         direction ID
 
         class StateScreen {
-            + void StartScreen()
-            + void GameOverScreen(Score score)
+            + void StartScreen(StateType StartGame)
+            + void GameOverScreen(StateType GameOver, Score score)
+        }
+```
+
+## Enumerate class
+```mermaid
+    classDiagram
+        direction ID
+
+        class enum StateType {
+            +  StartGame, %% 0
+            +  GameOver, %% 1, etc
         }
 ```
