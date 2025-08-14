@@ -97,7 +97,6 @@
             + void DrawGameSprite()? 
             + void DrawGameObstacle()?
             + void DrawGameBackground()? 
-            
         }
 ```
 
