@@ -4,23 +4,22 @@
 ```mermaid
     classDiagram
         direction TD
-        
-        class Program {
-            +GameScreen().DrawGameStartScreen()
-            +Game().Run()
-            +GameScreen().DrawGameOverScreen()
-        }
 
+        class Program {
+            +StateScreen().DrawGameStartScreen()
+            +Game().Run()
+            +StateScreen().DrawGameOverScreen()
+        }
 ```
 
 ##  Game klassen og interface
 ```mermaid
     classDiagram
         direction TD
-    
+
         Interface <|.. Game
         Game "1" -- "1" Interface
-        
+
         class Interface {
             +int GetPosition(int x, int y)
         }
@@ -28,18 +27,6 @@
         class Game {
             +bool CollisionCheck(int obstacleX, int obstacleY, int spriteX, int spriteY)
             +int score ObstacleAvoided(int obstacleX, int obstacleY, int spriteX, int spriteY)
-        }
-
-```
-
-##  Background klassen
-```mermaid
-    classDiagram
-        direction TD
-
-
-        class Background {
-            +void PrintBackground()
         }
 ```
 
@@ -52,7 +39,6 @@
             bool isUp;
             int velocity;
             +char[] AnimateSprite()
-            +void printSprite(char[]buffer)
         }
 ```
 
@@ -62,9 +48,8 @@
         direction TD
 
         class Score {
-            +void PrintScore()
+            +void ScoreIncrementer(int increment)
         }
-
 ```
 
 ##  Obstacles klassen
@@ -84,7 +69,7 @@
         direction TD
 
         class UserInput {
-            + void WatchSpace()
+            + void WatchSpace(Console input)
         }
 ```
 
@@ -97,21 +82,27 @@
             +void setPos(int movement = -1)
         }
 ```
+
 ##  Game Screen
 ```mermaid
     classDiagram
         direction TD
 
         class GameScreen {
-            + void DrawStartScreen()
-            + void DrawGameOverScreen()
-
-            %% Suggestions
-            + void DrawGameScore()?
-            + void DrawGameSprite()? 
-            + void DrawGameObstacle()?
-            + void DrawGameBackground()? 
-            
+            + void DrawGameScore(int score)
+            + void DrawGameSprite(char[] buffer)
+            + void DrawGameObstacle(char[] buffer)
+            + void DrawGameBackground(char[] buffer) 
         }
 ```
+
+##  StateScreen
+```mermaid
+    classDiagram
+        direction TD
+
+        class StateScreen {
+            + void DrawStartScreen(char[] buffer)
+            + void DrawGameOverScreen(char[] buffer) 
+        }
 ```
