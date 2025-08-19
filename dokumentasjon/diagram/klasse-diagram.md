@@ -80,7 +80,7 @@
     }
 ```
 
-##  Tegningkarakter klassen
+##  'Bird' klassen
 ```mermaid
     classDiagram
         direction TD
