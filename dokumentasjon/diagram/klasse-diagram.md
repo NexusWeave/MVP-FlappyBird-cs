@@ -103,14 +103,13 @@
     }
 ```
 
-
 ##  'Background' klassen
 ```mermaid
     classDiagram
         direction TD
 
         class Background {
-            + void SetBackground(ConsoleColor color)
+            + public void SetBackground(ConsoleColor color)
         }
 ```
 
