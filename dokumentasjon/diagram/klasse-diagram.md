@@ -90,7 +90,7 @@
 
         class Ground {
             +void GenerateGround(int increment)
-            +string char[] AnimateGround(string [] buffer)
+            +string string [] AnimateGround(string [] buffer)
         }
 ```
 
@@ -100,7 +100,7 @@
         direction TD
 
         class Pipe {
-            +char[] createObstacle()
-            +void PrintObstacle(char[] buffer)
+            +string[] createObstacle(string[] buffer)
+            +void PrintObstacle(string[] buffer)
         }
 ```
