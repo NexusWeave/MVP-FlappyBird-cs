@@ -59,8 +59,7 @@
             + public void step()
             + public void SetFrame()
             + public void NextFrame()
-            + public boolean CollisionCheck()
-            + public void GameObject(ConsoleColor foreground, ConsoleColor background, int col, int row, params string[][] frames)
+            + public  GameObject(ConsoleColor foreground, ConsoleColor background, int col, int row, params string[][] frames)
         }
 ```
 
@@ -70,7 +69,14 @@
         direction TD
 
     class Game {
-
+        + Pipe Position
+        + Bird Position
+        + Ground Position
+        + boolean GameState
+    
+        + public Run()
+        + public GameState( GameState GameState )
+        + boolean CollisionCheck(Bird Position, Pipe Position, Ground Position)
     }
 ```
 
@@ -89,7 +95,7 @@
         + public void Draw()
         + public Bird(int col, int row)
 
-        + Position Position
+        + Public Position Position
 
         + void Flap()
         + void Step(int floorRow)
@@ -112,6 +118,7 @@
     classDiagram
         direction TD
         class Ground {
+            + public Position Position;
             + private readonly GameObject _go;
 
             + string [] _ground
@@ -127,6 +134,7 @@
         direction TD
 
         class Pipe {
+            + public Position Position;
             + private readonly GameObject _go;
 
             + public void Draw()
