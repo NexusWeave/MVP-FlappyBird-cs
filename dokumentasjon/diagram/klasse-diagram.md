@@ -89,6 +89,7 @@
     class Bird {
         + int _flapTicks
         + readonly GameObject _go
+        + public Position Position
 
         + string[] wingsUp
         + string[] wingsDown
@@ -96,7 +97,7 @@
         + public void Draw()
         + public Bird(int col, int row)
 
-        + Public Position Position
+        
 
         + void Flap()
         + void Step(int floorRow)
@@ -118,11 +119,12 @@
     classDiagram
         direction TD
         class Ground {
+            + string [] _ground
             + public Position Position;
             + readonly GameObject _go;
 
-            + string [] _ground
-    
+            
+
             + public void Draw()
             + public string[] CreateGround(int Width)
         }
@@ -137,6 +139,7 @@
             + readonly GameObject _go;
             + public Position Position;
             
+            + bool Update()
             + public void Draw()
             + string[] CreateObstacle(string[] frame)
         }
