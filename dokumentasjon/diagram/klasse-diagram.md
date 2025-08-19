@@ -38,7 +38,7 @@
     }
 ```
 
-##  Spill objektet
+##  'GameObject' klassen
 ```mermaid
     classDiagram
         direction TD
