@@ -6,39 +6,70 @@
         direction TD
 
         class Program {
-            +StateScreen().DrawGameStartScreen()
-            +Game().Run()
-            +StateScreen().DrawGameOverScreen()
-        }
+            + Bird bird
+            + int Width
+            + int Height
+
+            bird.step()
+            + GameConsole.Fillrow()
+            + GameConsole.Writelines()
+    }
 ```
 
-##  Game klassen og interface
+##  Game Konsollen
 ```mermaid
     classDiagram
         direction TD
 
-        Interface <|.. Game
-        Game "1" -- "1" Interface
-
-        class Interface {
-            +int GetPosition(int x, int y)
-        }
-
-        class Game {
-            +bool CollisionCheck(int obstacleX, int obstacleY, int spriteX, int spriteY)
-            +int score ObstacleAvoided(int obstacleX, int obstacleY, int spriteX, int spriteY)
-        }
+    class GameConsole {
+        + public static void FillRow(int row, int widthm ConsoleColor bg)
+        + public static void WriteLines(int col, int row, string[] lines, ConsoleColor foreground, ConsoleColor Background)
+    }
 ```
 
-##  Sprite klassen
+##  Tegningkarakter klassen
 ```mermaid
     classDiagram
         direction TD
 
-        class Sprite {
-            bool isUp;
-            int velocity;
-            +char[] AnimateSprite()
+    class Bird {
+        private int _flapTicks
+        private readonly GameObject _go
+
+        +string[] wingsUp
+        +string[] wingsDown
+
+        +public Bird(int col, int row)
+
+        +Position Position
+
+        +void Flap()
+        +void Step(int floorRow)
+    }
+```
+
+##  Spill objektet
+```mermaid
+    classDiagram
+        direction TD
+
+        class GameObject {
+            + private int _current
+            + private readonly string[][] _frames
+            + private readonly ConsoleColor _foreGround
+            + private readonly ConsoleColor _backGround
+
+            + Position speed
+            + Position Position
+
+            + public int Width -> Frame Length
+            + public int Height -> Frame Height
+
+            + public Draw()
+            + public void step()
+            + public void SetFrame()
+            + Public void NextFrame()
+            + public void GameObject(ConsoleColor foreground, ConsoleColor background, int col, int row params string[][]frames)
         }
 ```
 
@@ -60,65 +91,5 @@
         class Obstacles {
             +char[] createObstacle()
             +void PrintObstacle(char[] buffer)
-        }
-```
-
-##  UserInput klassen
-```mermaid
-    classDiagram
-        direction TD
-
-        class UserInput {
-            + void WatchSpace(Console input)
-        }
-```
-
-##  Utils klassen
-```mermaid
-    classDiagram
-        direction TD
-
-        class Utils {
-            +void setPos(int movement = -1)
-        }
-```
-
-##  Game Screen
-```mermaid
-    classDiagram
-        direction TD
-
-        class GameScreen {
-            + void DrawStartScreen()
-            + void DrawGameOverScreen()
-
-            %% Suggestions
-            + void DrawGameScore()?
-            + void DrawGameSprite()? 
-            + void DrawGameObstacle()?
-            + void DrawGameBackground()? 
-        }
-```
-
-
-## State Screen
-```mermaid
-    classDiagram
-        direction ID
-
-        class StateScreen {
-            + void StartScreen(StateType StartGame)
-            + void GameOverScreen(StateType GameOver, Score score)
-        }
-```
-
-## Enumerate class
-```mermaid
-    classDiagram
-        direction ID
-
-        class enum StateType {
-            +  StartGame, %% 0
-            +  GameOver, %% 1, etc
         }
 ```
