@@ -94,7 +94,7 @@
             +string [] _ground
     
             +public void Draw()
-            +public string[] GenerateGround(int Width)
+            +public string[] CreateGround(int Width)
         }
 ```
 
@@ -107,7 +107,6 @@
             +private readonly GameObject _go;
 
             +public void Draw()
-            +string[] createObstacle(string[] frame)
-            +void PrintObstacle(string[] buffer)
+            +string[] CreateObstacle(string[] frame)
         }
 ```
