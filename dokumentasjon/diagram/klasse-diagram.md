@@ -33,19 +33,19 @@
         direction TD
 
     class Bird {
-        +private int _flapTicks
-        +private readonly GameObject _go
+        + private int _flapTicks
+        + private readonly GameObject _go
 
-        +string[] wingsUp
-        +string[] wingsDown
+        + string[] wingsUp
+        + string[] wingsDown
 
-        +public void Draw()
-        +public Bird(int col, int row)
+        + public void Draw()
+        + public Bird(int col, int row)
 
-        +Position Position
+        + Position Position
 
-        +void Flap()
-        +void Step(int floorRow)
+        + void Flap()
+        + void Step(int floorRow)
     }
 ```
 
@@ -70,6 +70,7 @@
             + public void step()
             + public void SetFrame()
             + public void NextFrame()
+            + public boolean CollisionCheck()
             + public void GameObject(ConsoleColor foreground, ConsoleColor background, int col, int row, params string[][] frames)
         }
 ```
@@ -80,7 +81,7 @@
         direction TD
 
         class Background {
-            +void SetBackground(ConsoleColor color)
+            + void SetBackground(ConsoleColor color)
         }
 ```
 
@@ -89,12 +90,12 @@
     classDiagram
         direction TD
         class Ground {
-            +private readonly GameObject _go;
+            + private readonly GameObject _go;
 
-            +string [] _ground
+            + string [] _ground
     
-            +public void Draw()
-            +public string[] CreateGround(int Width)
+            + public void Draw()
+            + public string[] CreateGround(int Width)
         }
 ```
 
@@ -104,9 +105,9 @@
         direction TD
 
         class Pipe {
-            +private readonly GameObject _go;
+            + private readonly GameObject _go;
 
-            +public void Draw()
-            +string[] CreateObstacle(string[] frame)
+            + public void Draw()
+            + string[] CreateObstacle(string[] frame)
         }
 ```
