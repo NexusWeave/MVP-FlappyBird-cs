@@ -90,7 +90,7 @@
 
         class Ground {
             +void GenerateGround(int increment)
-            +string string [] AnimateGround(string [] buffer)
+            +string[] AnimateGround(string[] buffer)
         }
 ```
 
