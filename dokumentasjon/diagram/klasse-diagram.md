@@ -15,6 +15,17 @@
             + GameConsole.Writelines()
     }
 ```
+##  'Position' klassen
+```mermaid
+    classDiagram
+        direction TD
+
+        class Position {
+            + public int Col;
+            + public int Row
+            + public Position(int col, int row) 
+        }
+```
 
 ##  'Game' Konsollen
 ```mermaid
