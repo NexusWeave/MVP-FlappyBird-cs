@@ -98,7 +98,7 @@
         }
 ```
 
-##  'Pipe' klassen
+##  Pipe klassen
 ```mermaid
     classDiagram
         direction TD
