@@ -7,8 +7,8 @@
 
         class Program {
             + Bird bird
-            + int Width
-            + int Height
+            + int Width -> Frame Length
+            + int Height - > Frame Height
 
             bird.step()
             + GameConsole.Fillrow()
@@ -33,12 +33,13 @@
         direction TD
 
     class Bird {
-        private int _flapTicks
-        private readonly GameObject _go
+        +private int _flapTicks
+        +private readonly GameObject _go
 
         +string[] wingsUp
         +string[] wingsDown
 
+        +public void Draw()
         +public Bird(int col, int row)
 
         +Position Position
@@ -87,9 +88,13 @@
 ```mermaid
     classDiagram
         direction TD
-
         class Ground {
-            +void GenerateGround(int increment)
+            +private readonly GameObject _go;
+
+            +string [] _ground
+    
+            +public void Draw()
+            +public string[] GenerateGround(int Width)
         }
 ```
 
@@ -99,7 +104,10 @@
         direction TD
 
         class Pipe {
-            +string[] createObstacle(string[] buffer)
+            +private readonly GameObject _go;
+
+            +public void Draw()
+            +string[] createObstacle(string[] frame)
             +void PrintObstacle(string[] buffer)
         }
 ```
