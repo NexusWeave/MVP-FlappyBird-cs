@@ -27,7 +27,7 @@
         }
 ```
 
-##  'Game' Konsollen
+##  'Game' Konsoll klassen
 ```mermaid
     classDiagram
         direction TD
@@ -35,28 +35,6 @@
     class GameConsole {
         + public static void FillRow(int row, int width, ConsoleColor background)
         + public static void WriteLines(int col, int row, string[] lines, ConsoleColor foreground, ConsoleColor Background)
-    }
-```
-
-##  Tegningkarakter klassen
-```mermaid
-    classDiagram
-        direction TD
-
-    class Bird {
-        + private int _flapTicks
-        + private readonly GameObject _go
-
-        + string[] wingsUp
-        + string[] wingsDown
-
-        + public void Draw()
-        + public Bird(int col, int row)
-
-        + Position Position
-
-        + void Flap()
-        + void Step(int floorRow)
     }
 ```
 
@@ -85,6 +63,39 @@
             + public void GameObject(ConsoleColor foreground, ConsoleColor background, int col, int row, params string[][] frames)
         }
 ```
+
+##  'Game' klassen
+```mermaid
+    classDiagram
+        direction TD
+
+    class Game {
+
+    }
+```
+
+##  Tegningkarakter klassen
+```mermaid
+    classDiagram
+        direction TD
+
+    class Bird {
+        + private int _flapTicks
+        + private readonly GameObject _go
+
+        + string[] wingsUp
+        + string[] wingsDown
+
+        + public void Draw()
+        + public Bird(int col, int row)
+
+        + Position Position
+
+        + void Flap()
+        + void Step(int floorRow)
+    }
+```
+
 
 ##  'Background' klassen
 ```mermaid
