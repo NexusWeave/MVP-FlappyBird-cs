@@ -73,13 +73,13 @@
         }
 ```
 
-##  'Score' klassen
+##  'Background' klassen
 ```mermaid
     classDiagram
         direction TD
 
-        class Score {
-            +void ScoreIncrementer(int increment)
+        class Background {
+            +void Set Background(ConsoleColor color)
         }
 ```
 
@@ -90,6 +90,7 @@
 
         class Ground {
             +void GenerateGround(int increment)
+            +string char[] AnimateGround(string [] buffer)
         }
 ```
 
