@@ -16,7 +16,7 @@
     }
 ```
 
-##  Game Konsollen
+##  'Game' Konsollen
 ```mermaid
     classDiagram
         direction TD
@@ -73,7 +73,7 @@
         }
 ```
 
-##  Score klassen
+##  'Score' klassen
 ```mermaid
     classDiagram
         direction TD
@@ -83,12 +83,22 @@
         }
 ```
 
-##  Obstacles klassen
+##  'Ground' klassen
 ```mermaid
     classDiagram
         direction TD
 
-        class Obstacles {
+        class Ground {
+            +void GenerateGround(int increment)
+        }
+```
+
+##  'Pipe' klassen
+```mermaid
+    classDiagram
+        direction TD
+
+        class Pipe {
             +char[] createObstacle()
             +void PrintObstacle(char[] buffer)
         }
