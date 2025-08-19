@@ -45,10 +45,10 @@
         direction TD
 
         class GameObject {
-            + private int _current
-            + private readonly string[][] _frames
-            + private readonly ConsoleColor _foreGround
-            + private readonly ConsoleColor _backGround
+            + int _current
+            + readonly string[][] _frames
+            + readonly ConsoleColor _foreGround
+            + readonly ConsoleColor _backGround
 
             + Position speed
             + Position Position
@@ -87,8 +87,8 @@
         direction TD
 
     class Bird {
-        + private int _flapTicks
-        + private readonly GameObject _go
+        + int _flapTicks
+        + readonly GameObject _go
 
         + string[] wingsUp
         + string[] wingsDown
@@ -120,7 +120,7 @@
         direction TD
         class Ground {
             + public Position Position;
-            + private readonly GameObject _go;
+            + readonly GameObject _go;
 
             + string [] _ground
     
@@ -135,9 +135,9 @@
         direction TD
 
         class Pipe {
+            + readonly GameObject _go;
             + public Position Position;
-            + private readonly GameObject _go;
-
+            
             + public void Draw()
             + string[] CreateObstacle(string[] frame)
         }
