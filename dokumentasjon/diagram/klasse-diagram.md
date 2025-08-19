@@ -22,7 +22,7 @@
         direction TD
 
     class GameConsole {
-        + public static void FillRow(int row, int width ConsoleColor background)
+        + public static void FillRow(int row, int width, ConsoleColor background)
         + public static void WriteLines(int col, int row, string[] lines, ConsoleColor foreground, ConsoleColor Background)
     }
 ```
