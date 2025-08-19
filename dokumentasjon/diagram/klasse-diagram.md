@@ -79,7 +79,7 @@
         direction TD
 
         class Background {
-            +void Set Background(ConsoleColor color)
+            +void SetBackground(ConsoleColor color)
         }
 ```
 
