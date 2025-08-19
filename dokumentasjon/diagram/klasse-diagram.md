@@ -15,6 +15,7 @@
             + GameConsole.Writelines()
     }
 ```
+
 ##  'Position' klassen
 ```mermaid
     classDiagram
