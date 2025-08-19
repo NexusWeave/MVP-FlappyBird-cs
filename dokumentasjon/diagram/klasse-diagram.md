@@ -1,6 +1,6 @@
 # Klasse diagram for OOP
 
-##  Program
+##  Program klassen
 ```mermaid
     classDiagram
         direction TD
