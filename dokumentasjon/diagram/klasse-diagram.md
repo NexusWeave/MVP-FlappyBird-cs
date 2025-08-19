@@ -69,7 +69,7 @@
             + public void step()
             + public void SetFrame()
             + public void NextFrame()
-            + public void GameObject(ConsoleColor foreground, ConsoleColor background, int col, int row params string[][]frames)
+            + public void GameObject(ConsoleColor foreground, ConsoleColor background, int col, int row, params string[][] frames)
         }
 ```
 
