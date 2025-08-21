@@ -35,7 +35,7 @@ sequenceDiagram
         p ->> p : Initializing the bird & draws it
         p ->> p: Animates the Pipe
 
-        go ->> b: Generate Birds
+        go ->> b: Generate birds
         b ->> pos: Create & update position
         b ->> b : Initializing the bird & draws it
         b ->> b: Animates the bird
