@@ -17,7 +17,7 @@ sequenceDiagram
 
     autonumber
     u ->> prog: User opens the program
-    prog ->> gc: Creates the window &  
+    prog ->> gc: Creates the window
     prog ->> g: Starts the Game
     
     loop while-loop
