@@ -1,6 +1,5 @@
 ```mermaid
 sequenceDiagram
-sequenceDiagram
     actor u as Belle
     
     participant prog as Program
